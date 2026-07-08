@@ -2,1047 +2,1931 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Word Problem Detective Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Word Problem Detective</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --sky: #3ec6ff;
-    --sky-dark: #1a9fd8;
-    --sun: #ffc93c;
-    --sun-dark: #f2a900;
-    --coral: #ff6f5e;
-    --coral-dark: #e6503f;
-    --grass: #4cc26c;
-    --grass-dark: #2f9e4f;
-    --grape: #9b6bdf;
-    --grape-dark: #7d4bc4;
-    --cream: #fff8ec;
-    --ink: #2f2a4a;
-    --paper: #ffffff;
+    --sky: #3ec6ff; --sky-dark: #1a9fd8;
+    --sun: #ffc93c; --sun-dark: #f2a900;
+    --coral: #ff6f5e; --coral-dark: #e6503f;
+    --grass: #4cc26c; --grass-dark: #2f9e4f;
+    --grape: #9b6bdf; --grape-dark: #7d4bc4;
+    --cream: #fff8ec; --ink: #2f2a4a; --paper: #ffffff;
+    --gold: #ffc93c; --gold-dark: #d99a12;
+    --silver: #cfd8e3; --silver-dark: #93a1b0;
+    --bronze: #d99a5b; --bronze-dark: #a9713a;
   }
-
   * { box-sizing: border-box; }
-
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    font-family: 'Nunito', sans-serif;
-    color: var(--ink);
+    margin: 0; font-family: 'Nunito', sans-serif; color: var(--ink);
     background:
       radial-gradient(circle at 8% 12%, rgba(62,198,255,0.18), transparent 40%),
       radial-gradient(circle at 92% 8%, rgba(255,201,60,0.22), transparent 38%),
       radial-gradient(circle at 85% 90%, rgba(155,107,223,0.16), transparent 42%),
       radial-gradient(circle at 10% 92%, rgba(76,194,108,0.16), transparent 38%),
       var(--cream);
-    padding: 28px 18px 50px;
+    padding-bottom: 40px;
   }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 18px; }
 
-  .wrap { max-width: 880px; margin: 0 auto; }
+  .navbar { position: sticky; top: 0; z-index: 50; background: var(--ink); border-bottom: 3px solid var(--ink); padding: 10px 0; box-shadow: 0 3px 0 rgba(0,0,0,0.15); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .nav-brand { font-family: 'Baloo 2', sans-serif; font-weight: 800; color: white; font-size: 16px; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .nav-links { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-btn { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 13px; background: transparent; color: #cfc9ee; border: 2px solid transparent; border-radius: 999px; padding: 6px 13px; cursor: pointer; white-space: nowrap; }
+  .nav-btn:hover { color: white; }
+  .nav-btn.active { background: var(--sun); color: var(--ink); border-color: var(--ink); }
+  .nav-user { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; color: white; white-space: nowrap; }
+  .nav-user button { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 11.5px; background: var(--coral); color: white; border: none; border-radius: 999px; padding: 5px 11px; cursor: pointer; }
 
-  /* ---------- HERO ---------- */
-  .hero {
-    text-align: center;
-    position: relative;
-    margin-bottom: 34px;
-  }
-  .hero .badge {
-    display: inline-block;
-    background: var(--sun);
-    color: var(--ink);
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    padding: 6px 18px;
-    border-radius: 999px;
-    border: 3px solid var(--ink);
-    transform: rotate(-3deg);
-    box-shadow: 3px 3px 0 var(--ink);
-    margin-bottom: 14px;
-  }
-  .hero h1 {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 800;
-    font-size: 48px;
-    line-height: 1.05;
-    margin: 0 0 8px;
-    color: var(--grape-dark);
-    text-shadow: 3px 3px 0 rgba(255,255,255,0.7);
-  }
-  .hero h1 span { color: var(--coral); }
-  .hero .mag {
-    font-size: 52px;
-    display: inline-block;
-    animation: swing 3.2s ease-in-out infinite;
-    transform-origin: 70% 20%;
-  }
-  @keyframes swing {
-    0%, 100% { transform: rotate(-8deg); }
-    50% { transform: rotate(8deg); }
-  }
-  .hero p.sub {
-    font-size: 19px;
-    font-weight: 800;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  /* ---------- SECTION HEADERS ---------- */
-  .section-title {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 26px;
-    color: var(--paper);
-    background: var(--grape);
-    display: inline-block;
-    padding: 8px 22px;
-    border-radius: 14px;
-    border: 3px solid var(--ink);
-    box-shadow: 4px 4px 0 var(--ink);
-    margin: 0 0 18px;
-  }
-  .section { margin-bottom: 44px; }
-
-  /* ---------- CLUES STEPS (FLIP CARDS) ---------- */
-  .clues-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-  }
-  @media (max-width: 760px) {
-    .clues-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  .clue-card {
-    background: transparent;
-    perspective: 1000px;
-    cursor: pointer;
-  }
-  .clue-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-  .clue-card.flipped .clue-card-inner {
-    transform: rotateY(180deg);
-  }
-  .clue-card-front, .clue-card-back {
-    grid-row: 1;
-    grid-column: 1;
-    width: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border: 3px solid var(--ink);
-    border-radius: 16px;
-    padding: 14px 10px 16px;
-    text-align: center;
-    box-shadow: 4px 4px 0 var(--ink);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .clue-card-front { background: var(--paper); }
-  .clue-card-back {
-    background: #f6f3ff;
-    transform: rotateY(180deg);
-    justify-content: center;
-  }
-  .clue-letter {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 800;
-    font-size: 30px;
-    width: 46px;
-    height: 46px;
-    line-height: 46px;
-    border-radius: 50%;
-    color: white;
-    margin: 0 auto 8px;
-    border: 3px solid var(--ink);
-    flex-shrink: 0;
-  }
-  .clue-card:nth-child(1) .clue-letter { background: var(--sky); }
-  .clue-card:nth-child(2) .clue-letter { background: var(--grass); }
-  .clue-card:nth-child(3) .clue-letter { background: var(--sun-dark); }
-  .clue-card:nth-child(4) .clue-letter { background: var(--coral); }
-  .clue-card:nth-child(5) .clue-letter { background: var(--grape); }
-  .clue-card .icon { font-size: 26px; margin-bottom: 4px; }
-  .clue-card h3 {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 15px;
-    margin: 4px 0 6px;
-    color: var(--ink);
-  }
-  .clue-card p {
-    font-size: 12.5px;
-    font-weight: 700;
-    margin: 0;
-    color: #55506e;
-    line-height: 1.35;
-  }
-  .clue-card-back .back-label {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--grape-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-  }
-  .clue-card-back .example-text {
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.4;
-  }
-  .clue-card-back .flip-hint {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: #9b93c2;
-    margin-top: 8px;
-    font-style: italic;
-  }
-  .clue-card-front .flip-hint {
-    font-size: 10px;
-    font-weight: 700;
-    color: #b3acd6;
-    margin-top: auto;
-    padding-top: 6px;
-    font-style: italic;
-  }
-
-  .clues-banner {
-    text-align: center;
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 18px;
-    color: var(--ink);
-    margin-top: 14px;
-    font-weight: 700;
-  }
-  .clues-banner b { color: var(--coral-dark); }
-
-  /* ---------- KEYWORD BANK ---------- */
-  .keyword-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-  @media (max-width: 620px) {
-    .keyword-cols { grid-template-columns: 1fr; }
-  }
-  .kw-box {
-    border-radius: 18px;
-    border: 3px solid var(--ink);
-    padding: 16px 18px 18px;
-    box-shadow: 4px 4px 0 var(--ink);
-  }
-  .kw-box.add { background: #eafff1; }
-  .kw-box.sub { background: #fff0ee; }
-  .kw-box.mul { background: #eaf6ff; }
-  .kw-box.div { background: #f4eeff; }
-  .kw-box.misc { background: #fff8e0; grid-column: 1 / -1; }
-  .kw-box.container { background: #e6fbf8; grid-column: 1 / -1; }
-  .kw-box h3 {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 19px;
-    margin: 0 0 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .kw-box.add h3 { color: var(--grass-dark); }
-  .kw-box.sub h3 { color: var(--coral-dark); }
-  .kw-box.mul h3 { color: var(--sky-dark); }
-  .kw-box.div h3 { color: var(--grape-dark); }
-  .kw-box.misc h3 { color: var(--sun-dark); }
-  .kw-box.container h3 { color: #0f9488; }
-  .kw-box .op {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px; height: 30px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 800;
-    font-size: 18px;
-    border: 2px solid var(--ink);
-  }
-  .kw-box.add .op { background: var(--grass); }
-  .kw-box.sub .op { background: var(--coral); }
-  .kw-box.mul .op { background: var(--sky); }
-  .kw-box.div .op { background: var(--grape); }
-  .kw-box.misc .op { background: var(--sun-dark); font-size: 15px; }
-  .kw-box.container .op { background: #0f9488; font-size: 16px; }
-  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .chip {
-    font-weight: 800;
-    font-size: 13px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 2px solid var(--ink);
-    background: white;
-  }
-  .kw-box.add .chip { color: var(--grass-dark); }
-  .kw-box.sub .chip { color: var(--coral-dark); }
-  .kw-box.mul .chip { color: var(--sky-dark); }
-  .kw-box.div .chip { color: var(--grape-dark); }
-  .kw-box.misc .chip { color: var(--sun-dark); }
-  .kw-box.container .chip { color: #0f9488; }
-  .misc-example {
-    margin-top: 12px;
-    padding: 10px 12px;
-    background: white;
-    border: 2px dashed var(--sun-dark);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .container-example {
-    margin-top: 12px;
-    padding: 10px 12px;
-    background: white;
-    border: 2px dashed #0f9488;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .clue-example {
-    margin-top: 12px;
-    padding: 10px 12px;
-    background: white;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .clue-example.add { border: 2px dashed var(--grass-dark); }
-  .clue-example.sub { border: 2px dashed var(--coral-dark); }
-  .clue-example.mul { border: 2px dashed var(--sky-dark); }
-  .clue-example.div { border: 2px dashed var(--grape-dark); }
-  .kw-highlight {
-    font-weight: 900;
-    padding: 1px 5px;
-    border-radius: 5px;
-  }
-  .kw-highlight.add { background: #c7f2d6; color: var(--grass-dark); }
-  .kw-highlight.sub { background: #ffd9d3; color: var(--coral-dark); }
-  .kw-highlight.mul { background: #cdecff; color: var(--sky-dark); }
-  .kw-highlight.div { background: #e2d3fb; color: var(--grape-dark); }
-  .kw-highlight.container { background: #c3f2ec; color: #0f9488; }
-  .kw-disclaimer {
-    margin-top: 16px;
-    padding: 12px 16px;
-    background: #f5f3ff;
-    border: 2px solid var(--grape);
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.6;
-    color: var(--ink);
-  }
-
-  /* ---------- WORKED EXAMPLE ---------- */
-  .example-card {
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    border-radius: 20px;
-    padding: 22px 24px 26px;
-    box-shadow: 5px 5px 0 var(--ink);
-  }
-  .example-problem {
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 1.7;
-    margin: 0 0 18px;
-    padding: 14px 16px;
-    background: #f6f3ff;
-    border-radius: 12px;
-    border: 2px dashed var(--grape);
-  }
-  .tag-number {
-    background: var(--sky);
-    color: white;
-    padding: 1px 9px;
-    border-radius: 999px;
-    border: 2px solid var(--ink);
-    font-weight: 800;
-  }
-  .tag-keyword {
-    background: var(--sun);
-    padding: 1px 8px;
-    border-radius: 6px;
-    border: 2px solid var(--ink);
-    font-weight: 800;
-  }
-  .tag-question {
-    text-decoration: underline;
-    text-decoration-color: var(--coral);
-    text-decoration-thickness: 4px;
-    text-underline-offset: 4px;
-    font-weight: 800;
-  }
-  .example-steps { display: flex; flex-direction: column; gap: 10px; }
-  .estep {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px 12px;
-    background: #fbfaff;
-    border-radius: 12px;
-    border: 2px solid #e3ddf7;
-  }
-  .estep .letter {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 800;
-    color: white;
-    width: 32px; height: 32px; min-width: 32px;
-    border-radius: 50%;
-    text-align: center; line-height: 32px;
-    border: 2px solid var(--ink);
-  }
-  .estep:nth-child(1) .letter { background: var(--sky); }
-  .estep:nth-child(2) .letter { background: var(--grass); }
-  .estep:nth-child(3) .letter { background: var(--sun-dark); }
-  .estep:nth-child(4) .letter { background: var(--coral); }
-  .estep:nth-child(5) .letter { background: var(--grape); }
-  .estep p { margin: 0; font-weight: 700; font-size: 14.5px; line-height: 1.5; }
-  .estep p b { color: var(--grape-dark); }
-
-  /* ---------- PRACTICE ---------- */
-  .practice-card {
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    border-radius: 20px;
-    padding: 20px 22px 22px;
-    box-shadow: 5px 5px 0 var(--ink);
-    margin-bottom: 20px;
-  }
-  .practice-card .ptitle {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 16px;
-    color: var(--grape-dark);
-    margin: 0 0 8px;
-  }
-  .practice-card .problem {
-    font-size: 16.5px;
-    font-weight: 800;
-    line-height: 1.8;
-    margin-bottom: 14px;
-  }
-  .practice-card .problem .word {
-    cursor: pointer;
-    padding: 1px 2px;
-    border-radius: 4px;
-  }
-  .practice-card .problem .word:hover {
-    background: #f0ecff;
-  }
-  .practice-card .problem .word.underlined {
-    text-decoration: underline;
-    text-decoration-color: var(--coral);
-    text-decoration-thickness: 3px;
-    text-underline-offset: 4px;
-    background: #fff0ee;
-  }
-  .practice-card .hint-note {
-    font-size: 11.5px;
-    font-weight: 700;
-    font-style: italic;
-    color: #8a84a8;
-    margin: -8px 0 14px;
-  }
-  .practice-card .answer-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .practice-card .answer-row label {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-  .practice-card .answer-input {
-    flex: 1;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 2.5px solid var(--ink);
-    background: #fbfaff;
-    color: var(--ink);
-  }
-  .practice-card .answer-input:focus {
-    outline: none;
-    border-color: var(--grape);
-    background: white;
-  }
-  .pro-tip {
-    background: #fff8e0;
-    border: 3px dashed var(--sun-dark);
-    border-radius: 16px;
-    padding: 12px 18px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #7a5b00;
-    line-height: 1.5;
-  }
-  .pro-tip b {
-    font-family: 'Baloo 2', sans-serif;
-    color: var(--coral-dark);
-  }
-  .made-with-love {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #8a84a8;
-  }
-  .made-with-love b {
-    color: var(--coral-dark);
-  }
+  .page { display: none; padding-top: 26px; }
+  .page.visible { display: block; }
+  .section-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; color: var(--paper); background: var(--grape); display: inline-block; padding: 8px 20px; border-radius: 14px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); margin: 0 0 18px; }
+  .card { background: var(--paper); border: 3px solid var(--ink); border-radius: 20px; padding: 22px 24px; box-shadow: 5px 5px 0 var(--ink); margin-bottom: 20px; }
+  .muted { color: #6b6486; font-weight: 700; font-size: 13.5px; }
+  .btn { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 14px; border-radius: 999px; border: 3px solid var(--ink); padding: 10px 20px; cursor: pointer; background: var(--sun); color: var(--ink); box-shadow: 3px 3px 0 var(--ink); transition: transform 0.1s ease; }
+  .btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn.green { background: var(--grass); color: white; }
+  .btn.coral { background: var(--coral); color: white; }
+  .btn.sky { background: var(--sky); color: white; }
+  .btn.grape { background: var(--grape); color: white; }
+  .btn.small { padding: 6px 14px; font-size: 12.5px; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  button.reveal-btn {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 13.5px;
-    border-radius: 999px;
-    border: 3px solid var(--ink);
-    padding: 8px 16px;
-    cursor: pointer;
-    background: var(--sun);
-    color: var(--ink);
-    box-shadow: 3px 3px 0 var(--ink);
-    transition: transform 0.1s ease;
+  input[type=text], input[type=email], input[type=password], select {
+    font-family: 'Nunito', sans-serif; font-size: 14.5px; font-weight: 700; padding: 9px 12px;
+    border-radius: 10px; border: 2.5px solid var(--ink); background: #fbfaff; color: var(--ink); width: 100%;
   }
-  button.reveal-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-  button.reveal-btn.answer-btn { background: var(--grass); color: white; }
-  .reveal-box {
-    display: none;
-    margin-top: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .reveal-box.hint { background: #fff7e0; border: 2px solid var(--sun-dark); color: #7a5b00; }
-  .reveal-box.answer { background: #e9fbee; border: 2px solid var(--grass-dark); color: #1c6e34; }
-  .reveal-box.answer.incorrect { background: #fff0ee; border: 2px solid var(--coral-dark); color: #8a2e22; }
-  .reveal-box.incorrect .stamp { display: none; }
-  .reveal-box.show { display: block; }
-  .feedback { font-family: 'Baloo 2', sans-serif; }
-  .stamp {
-    display: inline-block;
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 800;
-    color: var(--coral-dark);
-    border: 3px solid var(--coral-dark);
-    border-radius: 8px;
-    padding: 2px 10px;
-    transform: rotate(-6deg);
-    margin-left: 8px;
-    font-size: 12px;
+  input:focus, select:focus { outline: none; border-color: var(--grape); background: white; }
+  label.flabel { font-family: 'Baloo 2', sans-serif; font-size: 13px; color: var(--ink); display: block; margin-bottom: 4px; }
+  .field { margin-bottom: 14px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .msg-box { padding: 10px 14px; border-radius: 10px; font-weight: 800; font-size: 13.5px; margin-bottom: 14px; display: none; }
+  .msg-box.show { display: block; }
+  .msg-box.err { background: #fff0ee; border: 2px solid var(--coral-dark); color: var(--coral-dark); }
+  .msg-box.ok { background: #e9fbee; border: 2px solid var(--grass-dark); color: var(--grass-dark); }
+
+  .hero-mini { text-align: center; margin-bottom: 26px; }
+  .hero-mini h1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.1; margin: 0 0 8px; color: var(--grape-dark); text-shadow: 3px 3px 0 rgba(255,255,255,0.7); }
+  .hero-mini p { font-size: 15.5px; font-weight: 800; margin: 0; }
+  .badge { display: inline-block; background: var(--sun); color: var(--ink); font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 14px; padding: 6px 18px; border-radius: 999px; border: 3px solid var(--ink); transform: rotate(-3deg); box-shadow: 3px 3px 0 var(--ink); margin-bottom: 12px; }
+  .swing-emoji { font-size: 44px; display: inline-block; animation: clues-swing 3.2s ease-in-out infinite; transform-origin: 70% 20%; }
+  .stage-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
+  @media (max-width: 900px) { .stage-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .stage-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stage-card { background: white; border: 3px solid var(--ink); border-radius: 16px; padding: 16px 14px; text-align: center; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
+  .stage-card .num { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 12px; color: white; background: var(--grape); display: inline-block; padding: 2px 10px; border-radius: 999px; margin-bottom: 8px; }
+  .stage-card .icon { font-size: 30px; margin-bottom: 4px; }
+  .stage-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 15px; margin: 4px 0 4px; }
+  .stage-card p { font-size: 12px; font-weight: 700; color: #6b6486; margin: 0; }
+
+  .qcard { border: 2.5px solid #e3ddf7; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; background: #fbfaff; }
+  .qcard .qnum { font-family: 'Baloo 2', sans-serif; font-size: 12px; color: var(--grape-dark); margin-bottom: 4px; }
+  .qcard .qtext { font-weight: 800; font-size: 15px; margin-bottom: 10px; line-height: 1.5; }
+  .qcard .qanswer-row input { max-width: 140px; }
+  .qcard.correct { border-color: var(--grass-dark); background: #f1fdf4; }
+  .qcard.incorrect { border-color: var(--coral-dark); background: #fff5f3; }
+  .qfeedback { font-size: 12.5px; font-weight: 800; margin-top: 6px; }
+  .qfeedback.correct { color: var(--grass-dark); }
+  .qfeedback.incorrect { color: var(--coral-dark); }
+  .progress-track { height: 14px; background: #ece7fb; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
+  .progress-fill { height: 100%; background: var(--grass); transition: width 0.3s ease; }
+  .progress-label { font-size: 12.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+
+  .level-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+  @media (max-width: 760px) { .level-grid { grid-template-columns: 1fr; } }
+  .level-card { background: white; border: 3px solid var(--ink); border-radius: 18px; padding: 18px; box-shadow: 4px 4px 0 var(--ink); }
+  .level-card.locked { opacity: 0.55; }
+  .level-card.expert { background: linear-gradient(135deg, #fff8e0, #f6f3ff); border-color: var(--grape-dark); }
+  .level-card h3 { font-family: 'Baloo 2', sans-serif; margin: 0 0 4px; font-size: 18px; }
+  .level-card p.grades { font-family: 'Baloo 2', sans-serif; font-size: 12px; color: var(--grape-dark); margin: 0 0 6px; }
+  .level-card p.desc { font-size: 12.5px; font-weight: 700; color: #6b6486; margin: 0 0 10px; min-height: 34px; }
+  .status-pill { display: inline-block; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 11.5px; padding: 4px 11px; border-radius: 999px; border: 2px solid var(--ink); margin-bottom: 10px; }
+  .status-pill.open { background: var(--grass); color: white; }
+  .status-pill.upcoming { background: #eee; color: #777; }
+  .status-pill.closed { background: var(--coral); color: white; }
+  .status-pill.locked { background: #ccc; color: #555; }
+  .level-result { font-size: 13px; font-weight: 800; margin-bottom: 8px; }
+  .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 4px; }
+  @media (max-width: 900px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+  .why-card { background: white; border: 3px solid var(--ink); border-radius: 16px; padding: 14px 12px; box-shadow: 4px 4px 0 var(--ink); text-align: center; }
+  .why-card .wemoji { font-size: 32px; line-height: 1; margin-bottom: 6px; }
+  .why-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 13.5px; margin: 0 0 4px; }
+  .why-card p { font-size: 11.5px; font-weight: 700; color: #55506e; line-height: 1.4; margin: 0; }
+  .div-card { background: white; border: 3px solid var(--ink); border-radius: 18px; padding: 18px 14px; box-shadow: 4px 4px 0 var(--ink); text-align: center; }
+  .div-card.expert { background: linear-gradient(135deg, #fff8e0, #f6f3ff); border-color: var(--grape-dark); }
+  .div-card .demoji { font-size: 40px; line-height: 1; margin-bottom: 8px; }
+  .div-card h3 { font-family: 'Baloo 2', sans-serif; margin: 0 0 2px; font-size: 16px; }
+  .div-card .dgrades { font-family: 'Baloo 2', sans-serif; font-size: 11.5px; color: var(--grape-dark); margin: 0 0 2px; }
+  .div-card .dmonth { font-size: 10.5px; font-weight: 800; color: #9b93c2; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 10px; }
+  .div-card .ddesc { font-size: 12px; font-weight: 700; color: #55506e; line-height: 1.5; margin: 0; }
+  .division-flip-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 4px; }
+  .division-flip-card { background: transparent; perspective: 1000px; cursor: pointer; min-height: 160px; }
+  .division-flip-inner { position: relative; width: 100%; height: 100%; min-height: 160px; transition: transform 0.6s; transform-style: preserve-3d; }
+  .division-flip-card.flipped .division-flip-inner { transform: rotateY(180deg); }
+  .division-flip-front, .division-flip-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 3px solid var(--ink); border-radius: 16px; padding: 12px 8px; text-align: center; box-shadow: 4px 4px 0 var(--ink); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .division-flip-front { background: white; }
+  .division-flip-back { background: #f6f3ff; transform: rotateY(180deg); }
+  .division-flip-card.expert .division-flip-front, .division-flip-card.expert .division-flip-back { border-color: var(--grape-dark); background: linear-gradient(135deg, #fff8e0, #f6f3ff); }
+  .division-flip-front .demoji { font-size: 34px; margin-bottom: 6px; line-height: 1; }
+  .division-flip-front h3 { font-family: 'Baloo 2', sans-serif; font-size: 13px; margin: 0; line-height: 1.25; }
+  .division-flip-front .flip-hint2 { font-size: 9px; color: #b3acd6; margin-top: 8px; font-style: italic; }
+  .division-flip-back .back-label2 { font-family: 'Baloo 2', sans-serif; font-size: 9.5px; color: var(--grape-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .division-flip-back .dgrades2 { font-family: 'Baloo 2', sans-serif; font-size: 11px; color: var(--grape-dark); margin: 0 0 2px; font-weight: 700; }
+  .division-flip-back .dmonth2 { font-size: 9px; font-weight: 800; color: #9b93c2; text-transform: uppercase; letter-spacing: 0.4px; margin: 0 0 6px; }
+  .division-flip-back .ddesc2 { font-size: 9.5px; font-weight: 700; color: #55506e; line-height: 1.35; margin: 0; }
+  @media (max-width: 700px) {
+    .division-flip-grid { gap: 5px; }
+    .division-flip-front h3 { font-size: 10.5px; }
+    .division-flip-front .demoji { font-size: 24px; }
+    .division-flip-front .flip-hint2 { display: none; }
+    .division-flip-back .ddesc2 { font-size: 8px; }
+    .division-flip-back .dgrades2 { font-size: 9px; }
+    .division-flip-card { min-height: 120px; }
+    .division-flip-inner { min-height: 120px; }
   }
 
-  /* ---------- FOOTER REMINDER ---------- */
-  .reminder {
-    text-align: center;
-    background: var(--grape);
-    color: white;
-    border-radius: 18px;
-    border: 3px solid var(--ink);
-    padding: 18px 20px;
-    box-shadow: 5px 5px 0 var(--ink);
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.6;
-  }
-  .reminder .small {
-    font-family: 'Nunito', sans-serif;
-    font-size: 13.5px;
-    font-weight: 700;
-    opacity: 0.9;
-    margin-top: 6px;
-  }
+  .tab-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  table.rank-table { width: 100%; min-width: 720px; border-collapse: collapse; }
+  table.rank-table th, table.rank-table td { text-align: left; padding: 8px 10px; font-size: 13.5px; font-weight: 700; border-bottom: 2px solid #ece7fb; white-space: nowrap; }
+  table.rank-table th { font-family: 'Baloo 2', sans-serif; color: var(--grape-dark); font-size: 13px; }
+  table.rank-table tr.me { background: #fff8e0; }
+  table.rank-table td.rank-num { font-family: 'Baloo 2', sans-serif; font-weight: 800; color: var(--coral-dark); }
+  .filter-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: flex-end; }
+  .filter-row .field { margin-bottom: 0; min-width: 160px; flex: 1; }
 
-  /* ---------- MOBILE: STACK EVERYTHING VERTICALLY ---------- */
+  .paywall-card { background: linear-gradient(135deg, #f6f3ff, #eafff1); border: 3px dashed var(--grape); border-radius: 20px; padding: 22px 24px; }
+  .price-tag { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 30px; color: var(--coral-dark); }
+  .price-tag span { font-size: 15px; color: #6b6486; }
+  .perk-list { list-style: none; padding: 0; margin: 14px 0; }
+  .perk-list li { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+  .perk-list li::before { content: "✅ "; }
+  .payment-form { margin-top: 16px; display: none; }
+  .payment-form.show { display: block; }
+  .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .demo-note { font-size: 11.5px; font-weight: 700; color: #8a84a8; font-style: italic; margin-top: 10px; }
+  .badge-wrap { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 10px; }
+  .cert-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .prize-card { background: linear-gradient(135deg, #fff8e0, #fff0ee); border: 3px solid var(--sun-dark); border-radius: 18px; padding: 18px 20px; margin-top: 16px; }
+  .medal { font-size: 22px; margin-right: 4px; }
+
+  @media print {
+    body * { visibility: hidden; }
+    #print-area, #print-area * { visibility: visible; }
+    #print-area { position: absolute; top: 0; left: 0; width: 100%; }
+    .navbar, .cert-actions, .page:not(#page-merch) { display: none !important; }
+  }
   @media (max-width: 600px) {
-    body { padding: 18px 12px 36px; }
+    .hero-mini h1 { font-size: 26px; }
+    .card { padding: 16px; }
+    .field-row { grid-template-columns: 1fr; }
+  }
 
-    .hero .badge { font-size: 12.5px; padding: 5px 14px; }
-    .hero h1 { font-size: 32px; }
-    .hero .mag { font-size: 38px; }
-    .hero p.sub { font-size: 15px; padding: 0 4px; }
+  .page-footer { text-align: center; margin-top: 34px; padding-top: 18px; border-top: 3px dashed #e3ddf7; }
+  .page-footer p { font-size: 13px; font-weight: 700; color: #6b6486; margin: 4px 0; }
+  .page-footer p.small { font-size: 11.5px; font-weight: 700; color: #9b93c2; }
+  .page-footer b { color: var(--coral-dark); }
+  .page-footer .footer-links { margin-top: 10px; font-size: 12px; }
+  .page-footer .footer-links a { color: var(--grape-dark); text-decoration: none; font-weight: 800; }
+  .page-footer .footer-links a:hover { text-decoration: underline; }
+  .page-footer .footer-social { margin-top: 8px; font-size: 20px; }
+  .page-footer .footer-social a { text-decoration: none; margin: 0 6px; opacity: 0.75; }
+  .page-footer .footer-social a:hover { opacity: 1; }
 
-    .section-title { font-size: 20px; padding: 7px 16px; }
-
-    /* Stack the CLUES cards fully vertically */
-    .clues-grid { grid-template-columns: 1fr; }
-
-    /* Keyword bank already stacks at 620px, keep single column */
-    .keyword-cols { grid-template-columns: 1fr; }
-
-    .kw-box { padding: 14px 14px 16px; }
-    .chip { font-size: 12px; padding: 5px 10px; }
-
-    .example-problem { font-size: 16px; padding: 12px; }
-
-    .estep { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .estep .letter { margin-bottom: 2px; }
-
-    .practice-card { padding: 16px 16px 18px; }
-    .practice-card .problem { font-size: 15px; }
-
-    /* Stack answer label above input on narrow screens */
-    .practice-card .answer-row {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 6px;
-    }
-    .practice-card .answer-row label { white-space: normal; }
-
-    .btn-row { flex-direction: column; }
-    .btn-row button.reveal-btn { width: 100%; }
-
-    .reminder { font-size: 15px; padding: 16px 16px; }
+  /* ============ CLUES METHOD GUIDE (scoped to #page-home to avoid clashing with app-wide styles) ============ */
+  #page-home .clues-wrap { max-width: 880px; margin: 0 auto; padding-bottom: 10px; }
+  #page-home .hero { text-align: center; position: relative; margin-bottom: 34px; }
+  #page-home .hero .badge { display: inline-block; background: var(--sun); color: var(--ink); font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; padding: 6px 18px; border-radius: 999px; border: 3px solid var(--ink); transform: rotate(-3deg); box-shadow: 3px 3px 0 var(--ink); margin-bottom: 14px; }
+  #page-home .hero h1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; margin: 0 0 8px; color: var(--grape-dark); text-shadow: 3px 3px 0 rgba(255,255,255,0.7); }
+  #page-home .hero h1 span { color: var(--coral); }
+  #page-home .hero .mag { font-size: 52px; display: inline-block; animation: clues-swing 3.2s ease-in-out infinite; transform-origin: 70% 20%; }
+  @keyframes clues-swing { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+  #page-home .hero p.sub { font-size: 19px; font-weight: 800; color: var(--ink); margin: 0; }
+  #page-home .section-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 26px; color: var(--paper); background: var(--grape); display: inline-block; padding: 8px 22px; border-radius: 14px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); margin: 0 0 18px; }
+  #page-home .section { margin-bottom: 44px; }
+  #page-home .clues-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  @media (max-width: 760px) { #page-home .clues-grid { grid-template-columns: repeat(2, 1fr); } }
+  #page-home .clue-card { background: transparent; perspective: 1000px; cursor: pointer; }
+  #page-home .clue-card-inner { position: relative; width: 100%; height: 100%; display: grid; transition: transform 0.6s; transform-style: preserve-3d; }
+  #page-home .clue-card.flipped .clue-card-inner { transform: rotateY(180deg); }
+  #page-home .clue-card-front, #page-home .clue-card-back { grid-row: 1; grid-column: 1; width: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 3px solid var(--ink); border-radius: 16px; padding: 14px 10px 16px; text-align: center; box-shadow: 4px 4px 0 var(--ink); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+  #page-home .clue-card-front { background: var(--paper); }
+  #page-home .clue-card-back { background: #f6f3ff; transform: rotateY(180deg); justify-content: center; }
+  #page-home .clue-letter { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 30px; width: 46px; height: 46px; line-height: 46px; border-radius: 50%; color: white; margin: 0 auto 8px; border: 3px solid var(--ink); flex-shrink: 0; }
+  #page-home .clue-card:nth-child(1) .clue-letter { background: var(--sky); }
+  #page-home .clue-card:nth-child(2) .clue-letter { background: var(--grass); }
+  #page-home .clue-card:nth-child(3) .clue-letter { background: var(--sun-dark); }
+  #page-home .clue-card:nth-child(4) .clue-letter { background: var(--coral); }
+  #page-home .clue-card:nth-child(5) .clue-letter { background: var(--grape); }
+  #page-home .clue-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 15px; margin: 4px 0 6px; color: var(--ink); }
+  #page-home .clue-card p { font-size: 12.5px; font-weight: 700; margin: 0; color: #55506e; line-height: 1.35; }
+  #page-home .clue-card-back .back-label { font-family: 'Baloo 2', sans-serif; font-size: 11px; font-weight: 700; color: var(--grape-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  #page-home .clue-card-back .example-text { font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+  #page-home .clue-card-back .flip-hint { font-size: 10.5px; font-weight: 700; color: #9b93c2; margin-top: 8px; font-style: italic; }
+  #page-home .clue-card-front .flip-hint { font-size: 10px; font-weight: 700; color: #b3acd6; margin-top: auto; padding-top: 6px; font-style: italic; }
+  #page-home .clues-banner { text-align: center; font-family: 'Baloo 2', sans-serif; font-size: 18px; color: var(--ink); margin-top: 14px; font-weight: 700; }
+  #page-home .clues-banner b { color: var(--coral-dark); }
+  #page-home .keyword-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 620px) { #page-home .keyword-cols { grid-template-columns: 1fr; } }
+  #page-home .kw-box { border-radius: 18px; border: 3px solid var(--ink); padding: 16px 18px 18px; box-shadow: 4px 4px 0 var(--ink); }
+  #page-home .kw-box.add { background: #eafff1; }
+  #page-home .kw-box.sub { background: #fff0ee; }
+  #page-home .kw-box.mul { background: #eaf6ff; }
+  #page-home .kw-box.div { background: #f4eeff; }
+  #page-home .kw-box.misc { background: #fff8e0; grid-column: 1 / -1; }
+  #page-home .kw-box.container { background: #e6fbf8; grid-column: 1 / -1; }
+  #page-home .kw-box h3 { font-family: 'Baloo 2', sans-serif; font-size: 19px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+  #page-home .kw-box.add h3 { color: var(--grass-dark); }
+  #page-home .kw-box.sub h3 { color: var(--coral-dark); }
+  #page-home .kw-box.mul h3 { color: var(--sky-dark); }
+  #page-home .kw-box.div h3 { color: var(--grape-dark); }
+  #page-home .kw-box.misc h3 { color: var(--sun-dark); }
+  #page-home .kw-box.container h3 { color: #0f9488; }
+  #page-home .kw-box .op { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; color: white; font-weight: 800; font-size: 18px; border: 2px solid var(--ink); }
+  #page-home .kw-box.add .op { background: var(--grass); }
+  #page-home .kw-box.sub .op { background: var(--coral); }
+  #page-home .kw-box.mul .op { background: var(--sky); }
+  #page-home .kw-box.div .op { background: var(--grape); }
+  #page-home .kw-box.misc .op { background: var(--sun-dark); font-size: 15px; }
+  #page-home .kw-box.container .op { background: #0f9488; font-size: 16px; }
+  #page-home .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  #page-home .chip { font-weight: 800; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 2px solid var(--ink); background: white; }
+  #page-home .kw-box.add .chip { color: var(--grass-dark); }
+  #page-home .kw-box.sub .chip { color: var(--coral-dark); }
+  #page-home .kw-box.mul .chip { color: var(--sky-dark); }
+  #page-home .kw-box.div .chip { color: var(--grape-dark); }
+  #page-home .kw-box.misc .chip { color: var(--sun-dark); }
+  #page-home .kw-box.container .chip { color: #0f9488; }
+  #page-home .misc-example { margin-top: 12px; padding: 10px 12px; background: white; border: 2px dashed var(--sun-dark); border-radius: 10px; font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--ink); }
+  #page-home .container-example { margin-top: 12px; padding: 10px 12px; background: white; border: 2px dashed #0f9488; border-radius: 10px; font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--ink); }
+  #page-home .clue-example { margin-top: 12px; padding: 10px 12px; background: white; border-radius: 10px; font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--ink); }
+  #page-home .clue-example.add { border: 2px dashed var(--grass-dark); }
+  #page-home .clue-example.sub { border: 2px dashed var(--coral-dark); }
+  #page-home .clue-example.mul { border: 2px dashed var(--sky-dark); }
+  #page-home .clue-example.div { border: 2px dashed var(--grape-dark); }
+  #page-home .kw-highlight { font-weight: 900; padding: 1px 5px; border-radius: 5px; }
+  #page-home .kw-highlight.add { background: #c7f2d6; color: var(--grass-dark); }
+  #page-home .kw-highlight.sub { background: #ffd9d3; color: var(--coral-dark); }
+  #page-home .kw-highlight.mul { background: #cdecff; color: var(--sky-dark); }
+  #page-home .kw-highlight.div { background: #e2d3fb; color: var(--grape-dark); }
+  #page-home .kw-highlight.container { background: #c3f2ec; color: #0f9488; }
+  #page-home .kw-disclaimer { margin-top: 16px; padding: 12px 16px; background: #f5f3ff; border: 2px solid var(--grape); border-radius: 12px; font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ink); }
+  #page-home .example-card { background: var(--paper); border: 3px solid var(--ink); border-radius: 20px; padding: 22px 24px 26px; box-shadow: 5px 5px 0 var(--ink); }
+  #page-home .example-problem { font-size: 18px; font-weight: 800; line-height: 1.7; margin: 0 0 18px; padding: 14px 16px; background: #f6f3ff; border-radius: 12px; border: 2px dashed var(--grape); }
+  #page-home .tag-number { background: var(--sky); color: white; padding: 1px 9px; border-radius: 999px; border: 2px solid var(--ink); font-weight: 800; }
+  #page-home .tag-keyword { background: var(--sun); padding: 1px 8px; border-radius: 6px; border: 2px solid var(--ink); font-weight: 800; }
+  #page-home .tag-question { text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 4px; text-underline-offset: 4px; font-weight: 800; }
+  #page-home .example-steps { display: flex; flex-direction: column; gap: 10px; }
+  #page-home .estep { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; background: #fbfaff; border-radius: 12px; border: 2px solid #e3ddf7; }
+  #page-home .estep .letter { font-family: 'Baloo 2', sans-serif; font-weight: 800; color: white; width: 32px; height: 32px; min-width: 32px; border-radius: 50%; text-align: center; line-height: 32px; border: 2px solid var(--ink); }
+  #page-home .estep:nth-child(1) .letter { background: var(--sky); }
+  #page-home .estep:nth-child(2) .letter { background: var(--grass); }
+  #page-home .estep:nth-child(3) .letter { background: var(--sun-dark); }
+  #page-home .estep:nth-child(4) .letter { background: var(--coral); }
+  #page-home .estep:nth-child(5) .letter { background: var(--grape); }
+  #page-home .estep p { margin: 0; font-weight: 700; font-size: 14.5px; line-height: 1.5; }
+  #page-home .estep p b { color: var(--grape-dark); }
+  #page-home .practice-card { background: var(--paper); border: 3px solid var(--ink); border-radius: 20px; padding: 20px 22px 22px; box-shadow: 5px 5px 0 var(--ink); margin-bottom: 20px; }
+  #page-home .practice-card .ptitle { font-family: 'Baloo 2', sans-serif; font-size: 16px; color: var(--grape-dark); margin: 0 0 8px; }
+  #page-home .practice-card .problem { font-size: 16.5px; font-weight: 800; line-height: 1.8; margin-bottom: 14px; }
+  #page-home .practice-card .problem .word { cursor: pointer; padding: 1px 2px; border-radius: 4px; }
+  #page-home .practice-card .problem .word:hover { background: #f0ecff; }
+  #page-home .practice-card .problem .word.underlined { text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 3px; text-underline-offset: 4px; background: #fff0ee; }
+  #page-home .practice-card .answer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  #page-home .practice-card .answer-row label { font-family: 'Baloo 2', sans-serif; font-size: 14px; color: var(--ink); white-space: nowrap; }
+  #page-home .practice-card .answer-input { flex: 1; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; padding: 8px 12px; border-radius: 10px; border: 2.5px solid var(--ink); background: #fbfaff; color: var(--ink); }
+  #page-home .practice-card .answer-input:focus { outline: none; border-color: var(--grape); background: white; }
+  #page-home .pro-tip { background: #fff8e0; border: 3px dashed var(--sun-dark); border-radius: 16px; padding: 12px 18px; margin-bottom: 20px; font-size: 14px; font-weight: 700; color: #7a5b00; line-height: 1.5; }
+  #page-home .pro-tip b { font-family: 'Baloo 2', sans-serif; color: var(--coral-dark); }
+  #page-home .made-with-love { text-align: center; margin-top: 24px; font-size: 13px; font-weight: 700; color: #8a84a8; }
+  #page-home .made-with-love b { color: var(--coral-dark); }
+  #page-home button.reveal-btn { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 13.5px; border-radius: 999px; border: 3px solid var(--ink); padding: 8px 16px; cursor: pointer; background: var(--sun); color: var(--ink); box-shadow: 3px 3px 0 var(--ink); transition: transform 0.1s ease; }
+  #page-home button.reveal-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  #page-home button.reveal-btn.answer-btn { background: var(--grass); color: white; }
+  #page-home .reveal-box { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 12px; font-weight: 700; font-size: 14px; line-height: 1.5; }
+  #page-home .reveal-box.hint { background: #fff7e0; border: 2px solid var(--sun-dark); color: #7a5b00; }
+  #page-home .reveal-box.answer { background: #e9fbee; border: 2px solid var(--grass-dark); color: #1c6e34; }
+  #page-home .reveal-box.answer.incorrect { background: #fff0ee; border: 2px solid var(--coral-dark); color: #8a2e22; }
+  #page-home .reveal-box.incorrect .stamp { display: none; }
+  #page-home .reveal-box.show { display: block; }
+  #page-home .stamp { display: inline-block; font-family: 'Baloo 2', sans-serif; font-weight: 800; color: var(--coral-dark); border: 3px solid var(--coral-dark); border-radius: 8px; padding: 2px 10px; transform: rotate(-6deg); margin-left: 8px; font-size: 12px; }
+  #page-home .reminder { text-align: center; background: var(--grape); color: white; border-radius: 18px; border: 3px solid var(--ink); padding: 18px 20px; box-shadow: 5px 5px 0 var(--ink); font-family: 'Baloo 2', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.6; }
+  #page-home .reminder .small { font-family: 'Nunito', sans-serif; font-size: 13.5px; font-weight: 700; opacity: 0.9; margin-top: 6px; }
+  @media (max-width: 600px) {
+    #page-home .hero .badge { font-size: 12.5px; padding: 5px 14px; }
+    #page-home .hero h1 { font-size: 32px; }
+    #page-home .hero .mag { font-size: 38px; }
+    #page-home .hero p.sub { font-size: 15px; padding: 0 4px; }
+    #page-home .section-title { font-size: 20px; padding: 7px 16px; }
+    #page-home .clues-grid { grid-template-columns: 1fr; }
+    #page-home .keyword-cols { grid-template-columns: 1fr; }
+    #page-home .kw-box { padding: 14px 14px 16px; }
+    #page-home .chip { font-size: 12px; padding: 5px 10px; }
+    #page-home .example-problem { font-size: 16px; padding: 12px; }
+    #page-home .estep { flex-direction: column; align-items: flex-start; gap: 6px; }
+    #page-home .estep .letter { margin-bottom: 2px; }
+    #page-home .practice-card { padding: 16px 16px 18px; }
+    #page-home .practice-card .problem { font-size: 15px; }
+    #page-home .practice-card .answer-row { flex-direction: column; align-items: stretch; gap: 6px; }
+    #page-home .practice-card .answer-row label { white-space: normal; }
   }
 </style>
 </head>
 <body>
+
+<div class="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">🔍 Math Word Problem Detective</div>
+    <div class="nav-links" id="nav-links"></div>
+    <div class="nav-user" id="nav-user"></div>
+  </div>
+</div>
+
 <div class="wrap">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="badge">Awesome Mathematics</div>
-    <h1><span class="mag">🔍</span><br>Math Word Problem <span>Detective</span></h1>
-    <p class="sub">Every word problem is a mystery. Let's solve it like a real detective! 🕵️</p>
-  </div>
+  <!-- HOME: CLUES METHOD GUIDE -->
+  <div class="page" id="page-home">
+    <div class="clues-wrap">
+      <div class="hero">
+        <div class="badge">Awesome Mathematics</div>
+        <h1><span class="mag">🔍</span><br>Math Word Problem <span>Detective</span></h1>
+        <p class="sub">Every word problem is a mystery. Let's solve it like a real detective! 🕵️</p>
+      </div>
 
-  <!-- CLUES METHOD -->
-  <div class="section">
-    <div class="section-title">🧭 The C.L.U.E.S. Method</div>
-    <div class="clues-grid">
-      <div class="clue-card" onclick="this.classList.toggle('flipped')">
-        <div class="clue-card-inner">
-          <div class="clue-card-front">
-            <div class="clue-letter">C</div>
-            <h3>Circle the Numbers</h3>
-            <p>Find every number in the story and circle it.</p>
-            <div class="flip-hint">👆 Tap for example</div>
+      <div class="section">
+        <div class="section-title">🧭 The C.L.U.E.S. Method</div>
+        <div class="clues-grid">
+          <div class="clue-card" onclick="this.classList.toggle('flipped')">
+            <div class="clue-card-inner">
+              <div class="clue-card-front">
+                <div class="clue-letter">C</div>
+                <h3>Circle the Numbers</h3>
+                <p>Find every number in the story and circle it.</p>
+                <div class="flip-hint">👆 Tap for example</div>
+              </div>
+              <div class="clue-card-back">
+                <div class="back-label">Example</div>
+                <div class="example-text">Maya had <b>8</b> stickers. She gave <b>3</b> away.<br>8 and 3 are the clues &mdash; circle them!</div>
+                <div class="flip-hint">👆 Tap to flip back</div>
+              </div>
+            </div>
           </div>
-          <div class="clue-card-back">
-            <div class="back-label">Example</div>
-            <div class="example-text">Maya had <b>8</b> stickers. She gave <b>3</b> away.<br>8 and 3 are the clues &mdash; circle them!</div>
-            <div class="flip-hint">👆 Tap to flip back</div>
+          <div class="clue-card" onclick="this.classList.toggle('flipped')">
+            <div class="clue-card-inner">
+              <div class="clue-card-front">
+                <div class="clue-letter">L</div>
+                <h3>Look for the Question</h3>
+                <p>Find the sentence that asks something.</p>
+                <div class="flip-hint">👆 Tap for example</div>
+              </div>
+              <div class="clue-card-back">
+                <div class="back-label">Example</div>
+                <div class="example-text">"<b>How many stickers does Maya have left?</b>"<br>That's the question to answer!</div>
+                <div class="flip-hint">👆 Tap to flip back</div>
+              </div>
+            </div>
+          </div>
+          <div class="clue-card" onclick="this.classList.toggle('flipped')">
+            <div class="clue-card-inner">
+              <div class="clue-card-front">
+                <div class="clue-letter">U</div>
+                <h3>Underline Keywords</h3>
+                <p>Words like "altogether" or "left" are big clues!</p>
+                <div class="flip-hint">👆 Tap for example</div>
+              </div>
+              <div class="clue-card-back">
+                <div class="back-label">Example</div>
+                <div class="example-text">The word "<b>left</b>" is the keyword clue here &mdash; it hints at subtraction!</div>
+                <div class="flip-hint">👆 Tap to flip back</div>
+              </div>
+            </div>
+          </div>
+          <div class="clue-card" onclick="this.classList.toggle('flipped')">
+            <div class="clue-card-inner">
+              <div class="clue-card-front">
+                <div class="clue-letter">E</div>
+                <h3>Evaluate</h3>
+                <p>Use the keyword clue to choose the right operation.</p>
+                <div class="flip-hint">👆 Tap for example</div>
+              </div>
+              <div class="clue-card-back">
+                <div class="back-label">Example</div>
+                <div class="example-text">"Left" means take away, so we <b>SUBTRACT</b>:<br>8 &minus; 3</div>
+                <div class="flip-hint">👆 Tap to flip back</div>
+              </div>
+            </div>
+          </div>
+          <div class="clue-card" onclick="this.classList.toggle('flipped')">
+            <div class="clue-card-inner">
+              <div class="clue-card-front">
+                <div class="clue-letter">S</div>
+                <h3>Solve &amp; Check</h3>
+                <p>Do the math, then ask: does my answer make sense?</p>
+                <div class="flip-hint">👆 Tap for example</div>
+              </div>
+              <div class="clue-card-back">
+                <div class="back-label">Example</div>
+                <div class="example-text">8 &minus; 3 = <b>5</b> stickers left.<br>Makes sense &mdash; she has fewer now! ✅</div>
+                <div class="flip-hint">👆 Tap to flip back</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="clues-banner">Follow the <b>CLUES</b> and every mystery gets solved! 🎉</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🗝️ Keyword Clue Bank</div>
+        <div class="keyword-cols">
+          <div class="kw-box add">
+            <h3><span class="op">+</span> Addition Clues</h3>
+            <p style="margin:0; font-weight:700; font-size:13px;">These words mean put together, so ADD.</p>
+            <div class="chip-row">
+              <span class="chip">altogether</span>
+              <span class="chip">in all</span>
+              <span class="chip">total</span>
+              <span class="chip">sum</span>
+              <span class="chip">combined</span>
+              <span class="chip">in total</span>
+              <span class="chip">both</span>
+            </div>
+            <div class="clue-example add">
+              Example: Sam has 4 red balloons and 5 blue balloons. How many balloons does he have <span class="kw-highlight add">in total</span>?<br>
+              4 + 5 = <b>9 balloons</b>
+            </div>
+          </div>
+          <div class="kw-box sub">
+            <h3><span class="op">&minus;</span> Subtraction Clues</h3>
+            <p style="margin:0; font-weight:700; font-size:13px;">These words mean take away or compare, so SUBTRACT.</p>
+            <div class="chip-row">
+              <span class="chip">left</span>
+              <span class="chip">fewer</span>
+              <span class="chip">difference</span>
+              <span class="chip">how many more</span>
+              <span class="chip">remain</span>
+              <span class="chip">gave away</span>
+              <span class="chip">less than</span>
+            </div>
+            <div class="clue-example sub">
+              Example: There are 10 birds on a branch. 4 birds fly away. How many birds are <span class="kw-highlight sub">left</span>?<br>
+              10 &minus; 4 = <b>6 birds</b>
+            </div>
+          </div>
+          <div class="kw-box mul">
+            <h3><span class="op">&times;</span> Multiplication Clues</h3>
+            <p style="margin:0; font-weight:700; font-size:13px;">These words mean equal groups joining, so MULTIPLY.</p>
+            <div class="chip-row">
+              <span class="chip">each</span>
+              <span class="chip">every</span>
+              <span class="chip">per</span>
+              <span class="chip">times</span>
+              <span class="chip">groups of</span>
+              <span class="chip">twice</span>
+              <span class="chip">double</span>
+            </div>
+            <div class="clue-example mul">
+              Example: There are 4 pages of stickers. <span class="kw-highlight mul">Each</span> page has 3 stickers. How many stickers in all?<br>
+              4 &times; 3 = <b>12 stickers</b>
+            </div>
+          </div>
+          <div class="kw-box div">
+            <h3><span class="op">&divide;</span> Division Clues</h3>
+            <p style="margin:0; font-weight:700; font-size:13px;">These words mean splitting into equal groups, so DIVIDE.</p>
+            <div class="chip-row">
+              <span class="chip">share equally</span>
+              <span class="chip">split</span>
+              <span class="chip">each group</span>
+              <span class="chip">divided by</span>
+              <span class="chip">equally among</span>
+              <span class="chip">how many in each</span>
+            </div>
+            <div class="clue-example div">
+              Example: 15 cookies are <span class="kw-highlight div">shared equally</span> among 5 friends. How many cookies does each friend get?<br>
+              15 &divide; 5 = <b>3 cookies</b>
+            </div>
+          </div>
+          <div class="kw-box misc">
+            <h3><span class="op">⚠</span> Watch Out! Two-Step Clues</h3>
+            <p style="margin:0; font-weight:700; font-size:13px;">Sometimes a keyword means there's a HIDDEN step. You must work out one thing FIRST, then use that answer to solve the real question.</p>
+            <div class="chip-row">
+              <span class="chip">more than</span>
+              <span class="chip">less than</span>
+              <span class="chip">than</span>
+              <span class="chip">after</span>
+              <span class="chip">then</span>
+              <span class="chip">combined age</span>
+              <span class="chip">left after buying both</span>
+            </div>
+            <div class="misc-example">
+              Example: Tom has 5 apples. Mia has 3 <b>more</b> apples <b>than</b> Tom. How many apples do they have altogether?<br>
+              Step 1 (hidden step): Mia's apples = 5 + 3 = 8<br>
+              Step 2 (real question): 5 + 8 = <b>13 apples altogether</b>
+            </div>
+          </div>
+          <div class="kw-box container">
+            <h3><span class="op">📦</span> Container Clues</h3>
+            <p style="margin:0; font-weight:700; font-size:13px;">Watch for boxes, baskets, bags, jars, or groups holding equal amounts &mdash; they're often a multiplication or division clue!
+            If you know how many are in EACH container and how many containers, MULTIPLY. If you know the TOTAL and how many containers, DIVIDE to find how many in each.</p>
+            <div class="chip-row">
+              <span class="chip">box / boxes</span>
+              <span class="chip">basket / baskets</span>
+              <span class="chip">bag / bags</span>
+              <span class="chip">jar / jars</span>
+              <span class="chip">container</span>
+              <span class="chip">group / groups</span>
+              <span class="chip">package / pack</span>
+              <span class="chip">crate</span>
+            </div>
+            <div class="container-example">
+              Example: There are 3 <span class="kw-highlight container">baskets</span>. <span class="kw-highlight mul">Each</span> basket has 6 oranges. How many oranges are there in total?<br>
+              You know the amount in EACH basket, so MULTIPLY: 3 &times; 6 = <b>18 oranges</b>
+            </div>
+          </div>
+        </div>
+        <div class="kw-disclaimer">
+          <b>🕵️ A detective's reminder:</b> keywords are helpful clues, but they're not a magic trick! Sometimes
+          a word like "more" can still mean subtraction, depending on the story. Always read the WHOLE problem
+          and think about what is actually happening &mdash; the keyword just gives you a hint, it doesn't decide
+          the answer for you.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🔎 Case File #1 (Solved Example)</div>
+        <div class="example-card">
+          <p class="example-problem">
+            Maya had <span class="tag-number">8</span> stickers. She gave <span class="tag-number">3</span> stickers
+            to her friend. <span class="tag-question">How many stickers does Maya have <span class="tag-keyword">left</span>?</span>
+          </p>
+          <div class="example-steps">
+            <div class="estep">
+              <div class="letter">C</div>
+              <p>The numbers are <b>8</b> and <b>3</b>. Circle them!</p>
+            </div>
+            <div class="estep">
+              <div class="letter">L</div>
+              <p>The question is: <b>"How many stickers does Maya have left?"</b></p>
+            </div>
+            <div class="estep">
+              <div class="letter">U</div>
+              <p>The keyword is <b>"left"</b> &mdash; that's a subtraction clue!</p>
+            </div>
+            <div class="estep">
+              <div class="letter">E</div>
+              <p>"Left" means take away, so we <b>SUBTRACT</b>: 8 &minus; 3</p>
+            </div>
+            <div class="estep">
+              <div class="letter">S</div>
+              <p>8 &minus; 3 = <b>5</b>. Maya has 5 stickers left. Does that make sense? Yes &mdash; she has fewer than she started with! ✅</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="clue-card" onclick="this.classList.toggle('flipped')">
-        <div class="clue-card-inner">
-          <div class="clue-card-front">
-            <div class="clue-letter">L</div>
-            <h3>Look for the Question</h3>
-            <p>Find the sentence that asks something, and underline it.</p>
-            <div class="flip-hint">👆 Tap for example</div>
+
+      <div class="section">
+        <div class="section-title">🕵️‍♀️ Your Turn, Detective!</div>
+        <p class="pro-tip"><b>Pro Tip:</b> Click the clues in the sentence below to mark them so you won't miss them!</p>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #2</p>
+          <p class="problem" data-clues="2,9,20,21">Liam has 6 toy cars. His brother gives him 5 more toy cars. How many toy cars does Liam have in all?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans2" data-answer="11" placeholder="Type your answer here">
           </div>
-          <div class="clue-card-back">
-            <div class="back-label">Example</div>
-            <div class="example-text">"<u>How many stickers does Maya have left?</u>"<br>That's the question to answer!</div>
-            <div class="flip-hint">👆 Tap to flip back</div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint1')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans2','answer1')">✅ Check Answer</button>
           </div>
+          <div class="reveal-box hint" id="hint1">The keyword is <b>"in all"</b> &mdash; that means put the groups together. Which operation is that?</div>
+          <div class="reveal-box answer" id="answer1"><span class="feedback"></span>6 + 5 = <b>11</b>. Liam has 11 toy cars in all. <span class="stamp">CASE CLOSED</span></div>
+        </div>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #3</p>
+          <p class="problem" data-clues="2,7,15">There are 14 birds on a fence. 9 birds fly away. How many birds are left on the fence?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans3" data-answer="5" placeholder="Type your answer here">
+          </div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint2')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans3','answer2')">✅ Check Answer</button>
+          </div>
+          <div class="reveal-box hint" id="hint2">The keyword is <b>"left"</b> &mdash; some birds flew away, so the group got smaller.</div>
+          <div class="reveal-box answer" id="answer2"><span class="feedback"></span>14 &minus; 9 = <b>5</b>. There are 5 birds left on the fence. <span class="stamp">CASE CLOSED</span></div>
+        </div>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #4</p>
+          <p class="problem" data-clues="2,6,15">Ana picked 7 red apples and 8 green apples. How many apples did she pick altogether?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans4" data-answer="15" placeholder="Type your answer here">
+          </div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint3')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans4','answer3')">✅ Check Answer</button>
+          </div>
+          <div class="reveal-box hint" id="hint3">The keyword is <b>"altogether"</b> &mdash; two groups of apples are joining together.</div>
+          <div class="reveal-box answer" id="answer3"><span class="feedback"></span>7 + 8 = <b>15</b>. Ana picked 15 apples altogether. <span class="stamp">CASE CLOSED</span></div>
+        </div>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #5</p>
+          <p class="problem" data-clues="0,3,7,14,15">Each shelf has 5 books. There are 3 shelves. How many books are there in all?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans5" data-answer="15" placeholder="Type your answer here">
+          </div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint4')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans5','answer4')">✅ Check Answer</button>
+          </div>
+          <div class="reveal-box hint" id="hint4">The keyword is <b>"Each"</b> &mdash; equal groups joining together means MULTIPLY.</div>
+          <div class="reveal-box answer" id="answer4"><span class="feedback"></span>5 &times; 3 = <b>15</b>. There are 15 books in all. <span class="stamp">CASE CLOSED</span></div>
+        </div>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #6</p>
+          <p class="problem" data-clues="0,3,4,6">18 marbles are shared equally among 3 friends. How many marbles does each friend get?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans6" data-answer="6" placeholder="Type your answer here">
+          </div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint5')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans6','answer5')">✅ Check Answer</button>
+          </div>
+          <div class="reveal-box hint" id="hint5">The keyword is <b>"shared equally"</b> &mdash; splitting into equal groups means DIVIDE.</div>
+          <div class="reveal-box answer" id="answer5"><span class="feedback"></span>18 &divide; 3 = <b>6</b>. Each friend gets 6 marbles. <span class="stamp">CASE CLOSED</span></div>
+        </div>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #7</p>
+          <p class="problem" data-clues="2,6,7,9,17">Jack has 6 stamps. Mia has 4 more stamps than Jack. How many stamps do they have altogether?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans7" data-answer="16" placeholder="Type your answer here">
+          </div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint6')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans7','answer6')">✅ Check Answer</button>
+          </div>
+          <div class="reveal-box hint" id="hint6">The keyword is <b>"more than"</b> &mdash; that's a hidden step! First find Mia's stamps, THEN add both.</div>
+          <div class="reveal-box answer" id="answer6"><span class="feedback"></span>Step 1: Mia's stamps = 6 + 4 = 10. Step 2: 6 + 10 = <b>16</b>. They have 16 stamps altogether. <span class="stamp">CASE CLOSED</span></div>
+        </div>
+
+        <div class="practice-card">
+          <p class="ptitle">CASE FILE #8</p>
+          <p class="problem" data-clues="2,3,4,7,14,15">There are 4 boxes. Each box has 7 pencils. How many pencils are there in total?</p>
+          <div class="answer-row">
+            <label>Your Answer:</label>
+            <input type="text" class="answer-input" id="ans8" data-answer="28" placeholder="Type your answer here">
+          </div>
+          <div class="btn-row">
+            <button class="reveal-btn" onclick="toggleBox('hint7')">💡 Show Hint</button>
+            <button class="reveal-btn answer-btn" onclick="checkAnswer('ans8','answer7')">✅ Check Answer</button>
+          </div>
+          <div class="reveal-box hint" id="hint7">The keywords are <b>"boxes"</b> and <b>"Each"</b> &mdash; you know the amount in each container, so MULTIPLY.</div>
+          <div class="reveal-box answer" id="answer7"><span class="feedback"></span>4 &times; 7 = <b>28</b>. There are 28 pencils in total. <span class="stamp">CASE CLOSED</span></div>
         </div>
       </div>
-      <div class="clue-card" onclick="this.classList.toggle('flipped')">
-        <div class="clue-card-inner">
-          <div class="clue-card-front">
-            <div class="clue-letter">U</div>
-            <h3>Underline Keywords</h3>
-            <p>Words like "altogether" or "left" are big clues!</p>
-            <div class="flip-hint">👆 Tap for example</div>
-          </div>
-          <div class="clue-card-back">
-            <div class="back-label">Example</div>
-            <div class="example-text">The word "<b>left</b>" is the keyword clue here &mdash; it hints at subtraction!</div>
-            <div class="flip-hint">👆 Tap to flip back</div>
-          </div>
-        </div>
+
+      <div class="reminder">
+        🌟 Remember: Read every case TWICE before you solve it! 🌟
+        <div class="small">Slow, careful detectives solve the most mysteries.</div>
       </div>
-      <div class="clue-card" onclick="this.classList.toggle('flipped')">
-        <div class="clue-card-inner">
-          <div class="clue-card-front">
-            <div class="clue-letter">E</div>
-            <h3>Evaluate</h3>
-            <p>Use the keyword clue to choose the right operation.</p>
-            <div class="flip-hint">👆 Tap for example</div>
-          </div>
-          <div class="clue-card-back">
-            <div class="back-label">Example</div>
-            <div class="example-text">"Left" means take away, so we <b>SUBTRACT</b>:<br>8 &minus; 3</div>
-            <div class="flip-hint">👆 Tap to flip back</div>
-          </div>
-        </div>
-      </div>
-      <div class="clue-card" onclick="this.classList.toggle('flipped')">
-        <div class="clue-card-inner">
-          <div class="clue-card-front">
-            <div class="clue-letter">S</div>
-            <h3>Solve &amp; Check</h3>
-            <p>Do the math, then ask: does my answer make sense?</p>
-            <div class="flip-hint">👆 Tap for example</div>
-          </div>
-          <div class="clue-card-back">
-            <div class="back-label">Example</div>
-            <div class="example-text">8 &minus; 3 = <b>5</b> stickers left.<br>Makes sense &mdash; she has fewer now! ✅</div>
-            <div class="flip-hint">👆 Tap to flip back</div>
-          </div>
-        </div>
+
+      <div class="page-footer">
+        <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+        <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
       </div>
     </div>
-    <p class="clues-banner">Follow the <b>CLUES</b> and every mystery gets solved! 🎉</p>
   </div>
 
-  <!-- KEYWORD BANK -->
-  <div class="section">
-    <div class="section-title">🗝️ Keyword Clue Bank</div>
-    <div class="keyword-cols">
-      <div class="kw-box add">
-        <h3><span class="op">+</span> Addition Clues</h3>
-        <p style="margin:0; font-weight:700; font-size:13px;">These words mean put together, so ADD.</p>
-        <div class="chip-row">
-          <span class="chip">altogether</span>
-          <span class="chip">in all</span>
-          <span class="chip">total</span>
-          <span class="chip">sum</span>
-          <span class="chip">combined</span>
-          <span class="chip">in total</span>
-          <span class="chip">both</span>
-        </div>
-        <div class="clue-example add">
-          Example: Sam has 4 red balloons and 5 blue balloons. How many balloons does he have <span class="kw-highlight add">in total</span>?<br>
-          4 + 5 = <b>9 balloons</b>
-        </div>
-      </div>
-      <div class="kw-box sub">
-        <h3><span class="op">&minus;</span> Subtraction Clues</h3>
-        <p style="margin:0; font-weight:700; font-size:13px;">These words mean take away or compare, so SUBTRACT.</p>
-        <div class="chip-row">
-          <span class="chip">left</span>
-          <span class="chip">fewer</span>
-          <span class="chip">difference</span>
-          <span class="chip">how many more</span>
-          <span class="chip">remain</span>
-          <span class="chip">gave away</span>
-          <span class="chip">less than</span>
-        </div>
-        <div class="clue-example sub">
-          Example: There are 10 birds on a branch. 4 birds fly away. How many birds are <span class="kw-highlight sub">left</span>?<br>
-          10 &minus; 4 = <b>6 birds</b>
-        </div>
-      </div>
-      <div class="kw-box mul">
-        <h3><span class="op">&times;</span> Multiplication Clues</h3>
-        <p style="margin:0; font-weight:700; font-size:13px;">These words mean equal groups joining, so MULTIPLY.</p>
-        <div class="chip-row">
-          <span class="chip">each</span>
-          <span class="chip">every</span>
-          <span class="chip">per</span>
-          <span class="chip">times</span>
-          <span class="chip">groups of</span>
-          <span class="chip">twice</span>
-          <span class="chip">double</span>
-        </div>
-        <div class="clue-example mul">
-          Example: There are 4 pages of stickers. <span class="kw-highlight mul">Each</span> page has 3 stickers. How many stickers in all?<br>
-          4 &times; 3 = <b>12 stickers</b>
-        </div>
-      </div>
-      <div class="kw-box div">
-        <h3><span class="op">&divide;</span> Division Clues</h3>
-        <p style="margin:0; font-weight:700; font-size:13px;">These words mean splitting into equal groups, so DIVIDE.</p>
-        <div class="chip-row">
-          <span class="chip">share equally</span>
-          <span class="chip">split</span>
-          <span class="chip">each group</span>
-          <span class="chip">divided by</span>
-          <span class="chip">equally among</span>
-          <span class="chip">how many in each</span>
-        </div>
-        <div class="clue-example div">
-          Example: 15 cookies are <span class="kw-highlight div">shared equally</span> among 5 friends. How many cookies does each friend get?<br>
-          15 &divide; 5 = <b>3 cookies</b>
-        </div>
-      </div>
-      <div class="kw-box misc">
-        <h3><span class="op">⚠</span> Watch Out! Two-Step Clues</h3>
-        <p style="margin:0; font-weight:700; font-size:13px;">Sometimes a keyword means there's a HIDDEN step. You must work out one thing FIRST, then use that answer to solve the real question.</p>
-        <div class="chip-row">
-          <span class="chip">more than</span>
-          <span class="chip">less than</span>
-          <span class="chip">than</span>
-          <span class="chip">after</span>
-          <span class="chip">then</span>
-          <span class="chip">combined age</span>
-          <span class="chip">left after buying both</span>
-        </div>
-        <div class="misc-example">
-          Example: Tom has 5 apples. Mia has 3 <b>more</b> apples <b>than</b> Tom. How many apples do they have altogether?<br>
-          Step 1 (hidden step): Mia's apples = 5 + 3 = 8<br>
-          Step 2 (real question): 5 + 8 = <b>13 apples altogether</b>
-        </div>
-      </div>
-      <div class="kw-box container">
-        <h3><span class="op">📦</span> Container Clues</h3>
-        <p style="margin:0; font-weight:700; font-size:13px;">Watch for boxes, baskets, bags, jars, or groups holding equal amounts &mdash; they're often a multiplication or division clue!
-        If you know how many are in EACH container and how many containers, MULTIPLY. If you know the TOTAL and how many containers, DIVIDE to find how many in each.</p>
-        <div class="chip-row">
-          <span class="chip">box / boxes</span>
-          <span class="chip">basket / baskets</span>
-          <span class="chip">bag / bags</span>
-          <span class="chip">jar / jars</span>
-          <span class="chip">container</span>
-          <span class="chip">group / groups</span>
-          <span class="chip">package / pack</span>
-          <span class="chip">crate</span>
-        </div>
-        <div class="container-example">
-          Example: There are 3 <span class="kw-highlight container">baskets</span>. <span class="kw-highlight mul">Each</span> basket has 6 oranges. How many oranges are there in total?<br>
-          You know the amount in EACH basket, so MULTIPLY: 3 &times; 6 = <b>18 oranges</b>
-        </div>
-      </div>
+  <!-- AUTH -->
+  <div class="page" id="page-auth">
+    <div class="hero-mini">
+      <h1>🪪 Detective Account</h1>
+      <p>Sign in or create a free account to practice, compete, and track your progress.</p>
     </div>
-    <div class="kw-disclaimer">
-      <b>🕵️ A detective's reminder:</b> keywords are helpful clues, but they're not a magic trick! Sometimes
-      a word like "more" can still mean subtraction, depending on the story. Always read the WHOLE problem
-      and think about what is actually happening &mdash; the keyword just gives you a hint, it doesn't decide
-      the answer for you.
-    </div>
-  </div>
+    <div class="card" style="max-width:460px; margin:0 auto;">
+      <div class="tab-row">
+        <button class="btn sky" id="tab-login" onclick="switchAuthTab('login')">Log In</button>
+        <button class="btn" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+      <div id="msg-auth" class="msg-box"></div>
 
-  <!-- WORKED EXAMPLE -->
-  <div class="section">
-    <div class="section-title">🔎 Case File #1 (Solved Example)</div>
-    <div class="example-card">
-      <p class="example-problem">
-        Maya had <span class="tag-number">8</span> stickers. She gave <span class="tag-number">3</span> stickers
-        to her friend. <span class="tag-question">How many stickers does Maya have <span class="tag-keyword">left</span>?</span>
-      </p>
-      <div class="example-steps">
-        <div class="estep">
-          <div class="letter">C</div>
-          <p>The numbers are <b>8</b> and <b>3</b>. Circle them!</p>
+      <form id="form-login" onsubmit="return handleLogin(event)">
+        <div class="field"><label class="flabel">Email</label><input type="email" id="li-email" required></div>
+        <div class="field"><label class="flabel">Password</label><input type="password" id="li-password" required></div>
+        <button class="btn green" type="submit">Log In</button>
+      </form>
+
+      <form id="form-signup" style="display:none;" onsubmit="return handleSignup(event)">
+        <div class="field-row">
+          <div class="field"><label class="flabel">First Name</label><input type="text" id="su-first" required></div>
+          <div class="field"><label class="flabel">Last Name</label><input type="text" id="su-last" required></div>
         </div>
-        <div class="estep">
-          <div class="letter">L</div>
-          <p>The question is: <b>"How many stickers does Maya have left?"</b></p>
+        <div class="field"><label class="flabel">Parent/Guardian Email</label><input type="email" id="su-email" required></div>
+        <div class="field"><label class="flabel">Password (4+ characters)</label><input type="password" id="su-password" required minlength="4"></div>
+        <div class="field"><label class="flabel">School Name (optional)</label><input type="text" id="su-school" placeholder="e.g. Rizal Elementary School"></div>
+        <div class="field-row">
+          <div class="field"><label class="flabel">Country</label><select id="su-country"></select></div>
+          <div class="field"><label class="flabel">City</label><input type="text" id="su-city" placeholder="e.g. Quezon City"></div>
         </div>
-        <div class="estep">
-          <div class="letter">U</div>
-          <p>The keyword is <b>"left"</b> &mdash; that's a subtraction clue!</p>
-        </div>
-        <div class="estep">
-          <div class="letter">E</div>
-          <p>"Left" means take away, so we <b>SUBTRACT</b>: 8 &minus; 3</p>
-        </div>
-        <div class="estep">
-          <div class="letter">S</div>
-          <p>8 &minus; 3 = <b>5</b>. Maya has 5 stickers left. Does that make sense? Yes &mdash; she has fewer than she started with! ✅</p>
-        </div>
-      </div>
+        <div class="field"><label class="flabel">Age Group (determines which divisions you can join)</label><select id="su-agegroup"></select></div>
+        <button class="btn green" type="submit">Create Account</button>
+      </form>
+      <p class="demo-note">Prototype notice: accounts here are for demo purposes only and are not stored with production-grade security. Please don't reuse a real password you use elsewhere.</p>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
     </div>
   </div>
 
   <!-- PRACTICE -->
-  <div class="section">
-    <div class="section-title">🕵️‍♀️ Your Turn, Detective!</div>
-    <p class="pro-tip"><b>Pro Tip:</b> Click the clues in the sentence below to mark them so you won't miss them!</p>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #2</p>
-      <p class="problem" data-clues="2,9,20,21">Liam has 6 toy cars. His brother gives him 5 more toy cars. How many toy cars does Liam have in all?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans2" data-answer="11" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint1')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans2','answer1')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint1">The keyword is <b>"in all"</b> &mdash; that means put the groups together. Which operation is that?</div>
-      <div class="reveal-box answer" id="answer1"><span class="feedback"></span>6 + 5 = <b>11</b>. Liam has 11 toy cars in all. <span class="stamp">CASE CLOSED</span></div>
+  <div class="page" id="page-practice">
+    <div class="hero-mini">
+      <h1>✏️ Free Practice</h1>
+      <p>Warm up with practice cases before you compete in the real Olympiad.</p>
     </div>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #3</p>
-      <p class="problem" data-clues="2,7,15">There are 14 birds on a fence. 9 birds fly away. How many birds are left on the fence?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans3" data-answer="5" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint2')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans3','answer2')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint2">The keyword is <b>"left"</b> &mdash; some birds flew away, so the group got smaller.</div>
-      <div class="reveal-box answer" id="answer2"><span class="feedback"></span>14 &minus; 9 = <b>5</b>. There are 5 birds left on the fence. <span class="stamp">CASE CLOSED</span></div>
+    <div id="practice-gate"></div>
+    <div id="practice-level-select" style="display:none;"></div>
+    <div id="practice-body" style="display:none;">
+      <button class="btn small" onclick="changePracticeLevel()">⬅ Change Division</button>
+      <div style="height:14px;"></div>
+      <p class="muted">Practicing as <b id="practice-name-label"></b> — <b id="practice-level-label"></b>. Scores here don't count toward the Olympiad — just for warming up!</p>
+      <div id="practice-list"></div>
+      <div class="btn-row"><button class="btn green" onclick="submitPractice()">✅ Check My Practice Score</button></div>
+      <div id="practice-result" style="margin-top:16px;"></div>
     </div>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #4</p>
-      <p class="problem" data-clues="2,6,15">Ana picked 7 red apples and 8 green apples. How many apples did she pick altogether?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans4" data-answer="15" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint3')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans4','answer3')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint3">The keyword is <b>"altogether"</b> &mdash; two groups of apples are joining together.</div>
-      <div class="reveal-box answer" id="answer3"><span class="feedback"></span>7 + 8 = <b>15</b>. Ana picked 15 apples altogether. <span class="stamp">CASE CLOSED</span></div>
-    </div>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #5</p>
-      <p class="problem" data-clues="0,3,7,14,15">Each shelf has 5 books. There are 3 shelves. How many books are there in all?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans5" data-answer="15" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint4')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans5','answer4')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint4">The keyword is <b>"Each"</b> &mdash; equal groups joining together means MULTIPLY.</div>
-      <div class="reveal-box answer" id="answer4"><span class="feedback"></span>5 &times; 3 = <b>15</b>. There are 15 books in all. <span class="stamp">CASE CLOSED</span></div>
-    </div>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #6</p>
-      <p class="problem" data-clues="0,3,4,6">18 marbles are shared equally among 3 friends. How many marbles does each friend get?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans6" data-answer="6" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint5')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans6','answer5')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint5">The keyword is <b>"shared equally"</b> &mdash; splitting into equal groups means DIVIDE.</div>
-      <div class="reveal-box answer" id="answer5"><span class="feedback"></span>18 &divide; 3 = <b>6</b>. Each friend gets 6 marbles. <span class="stamp">CASE CLOSED</span></div>
-    </div>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #7</p>
-      <p class="problem" data-clues="2,6,7,9,17">Jack has 6 stamps. Mia has 4 more stamps than Jack. How many stamps do they have altogether?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans7" data-answer="16" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint6')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans7','answer6')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint6">The keyword is <b>"more than"</b> &mdash; that's a hidden step! First find Mia's stamps, THEN add both.</div>
-      <div class="reveal-box answer" id="answer6"><span class="feedback"></span>Step 1: Mia's stamps = 6 + 4 = 10. Step 2: 6 + 10 = <b>16</b>. They have 16 stamps altogether. <span class="stamp">CASE CLOSED</span></div>
-    </div>
-
-    <div class="practice-card">
-      <p class="ptitle">CASE FILE #8</p>
-      <p class="problem" data-clues="2,3,4,7,14,15">There are 4 boxes. Each box has 7 pencils. How many pencils are there in total?</p>
-      <div class="answer-row">
-        <label>Your Answer:</label>
-        <input type="text" class="answer-input" id="ans8" data-answer="28" placeholder="Type your answer here">
-      </div>
-      <div class="btn-row">
-        <button class="reveal-btn" onclick="toggleBox('hint7')">💡 Show Hint</button>
-        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans8','answer7')">✅ Check Answer</button>
-      </div>
-      <div class="reveal-box hint" id="hint7">The keywords are <b>"boxes"</b> and <b>"Each"</b> &mdash; you know the amount in each container, so MULTIPLY.</div>
-      <div class="reveal-box answer" id="answer7"><span class="feedback"></span>4 &times; 7 = <b>28</b>. There are 28 pencils in total. <span class="stamp">CASE CLOSED</span></div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div class="reminder">
-    🌟 Remember: Read every case TWICE before you solve it! 🌟
-    <div class="small">Slow, careful detectives solve the most mysteries.</div>
+  <!-- OLYMPIAD -->
+  <div class="page" id="page-olympiad">
+    <div class="hero-mini">
+      <div class="badge">🏆 Yearly Championship</div>
+      <h1><span class="swing-emoji">🏅</span><br><span id="home-year-title">Olympiad</span></h1>
+      <p>Study the CLUES Method, practice free, then compete in the yearly Olympiad! 🕵️</p>
+    </div>
+    <div class="stage-grid">
+      <div class="stage-card" onclick="showPage('home')"><div class="num">STEP 1</div><div class="icon">📖</div><h3>Learn CLUES</h3><p>Study the method for free</p></div>
+      <div class="stage-card" onclick="showPage('practice')"><div class="num">STEP 2</div><div class="icon">✏️</div><h3>Practice</h3><p>Warm up, no pressure</p></div>
+      <div class="stage-card" onclick="showPage('schedule')"><div class="num">STEP 3</div><div class="icon">📅</div><h3>Check Schedule</h3><p>See when your division opens</p></div>
+      <div class="stage-card" onclick="document.getElementById('olympiad-divisions-anchor').scrollIntoView({behavior:'smooth'})"><div class="num">STEP 4</div><div class="icon">📋</div><h3>Take the Test</h3><p>Pick your division below</p></div>
+      <div class="stage-card" onclick="showPage('rankings')"><div class="num">STEP 5</div><div class="icon">🏆</div><h3>Rankings</h3><p>See how you stack up</p></div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div class="section-title">🧩 The 5 Divisions</div>
+      <p class="muted" style="margin:-4px 0 12px;">Tap a card to flip it and see the age range, month, and full topic coverage.</p>
+      <div class="division-flip-grid" id="division-overview-grid"></div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div class="section-title">📜 Olympiad Rules</div>
+      <p class="muted" style="margin:-4px 0 12px;">The official rules for competing in the yearly Olympiad — please read carefully.</p>
+      <div class="card">
+        <ul style="font-weight:700; font-size:13.5px; line-height:1.95; padding-left:20px; margin:0;">
+          <li>🪪 <b>Eligibility:</b> A free account is required, and you choose your <b>Age Group</b> when you sign up (Ages 3–8, 9–11, 12–15, 16–18, or 19+ with no upper limit). Your age group sets your division — you can compete in your own division or any harder one above it, but never an easier one below it. Grand Master Division (19+) has no age ceiling — geeks and nerds are welcome to compete forever! 🤓</li>
+          <li>📝 <b>Sign-Up:</b> Registration opens in June, ahead of the July–November exam season, so you can create your account and get ready before your division's month arrives.</li>
+          <li>💻 <b>Format:</b> The Olympiad exam is taken entirely online, from any device with internet access — no testing center or physical attendance required.</li>
+          <li>📋 <b>Questions:</b> Each division's Olympiad exam has at least 100 word-problem cases — some divisions or years may include more.</li>
+          <li>⏱️ <b>Time:</b> There's no hard time limit — solve at your own pace. Your total completion time is recorded down to the second.</li>
+          <li>🕒 <b>Tie-Breakers:</b> Completion time is a secondary ranking factor. If two or more participants earn the same score in a division, whoever finished with the faster completion time ranks higher.</li>
+          <li>🔁 <b>Attempts:</b> One official attempt per division, per year — once submitted, there are no retakes.</li>
+          <li>🎖️ <b>Scoring Tiers:</b> Gold Detective (95%+), Silver Detective (90%+), Bronze Detective (85%+), Rookie Detective (80%+). Below 80%, participants receive a Certificate of Participation instead of a scoring tier.</li>
+          <li>📜 <b>Everyone Gets a Certificate:</b> Every participant receives a free digital certificate — a Certificate of Achievement with a scoring tier for 80%+, or a Certificate of Participation for everyone else.</li>
+          <li>🏆 <b>Winners &amp; Announcements:</b> Official National Top 10 winners are announced at least 7 days after a division's exam month ends, giving time to review any scoring disputes. Once that 7-day window closes, rankings are final and can no longer be disputed.</li>
+          <li>🎁 <b>Prizes:</b> The National Top 10 earn a merch prize pack; the Top 3 also receive medals 🥇🥈🥉. Merch items are based on availability and are not guaranteed to be the exact items shown.</li>
+          <li>💳 <b>Fees:</b> Any Olympiad registration fees are non-refundable, including in cases of missed deadlines, disqualification, or withdrawal.</li>
+          <li>📅 <b>Scheduling:</b> Each division's exam window is open for its entire assigned month only — check the Schedule tab for exact dates.</li>
+          <li>🔄 <b>Subject to Change:</b> Divisions, question counts, scoring tiers, prizes, and all other rules are subject to change from year to year.</li>
+        </ul>
+      </div>
+    </div>
+    <div id="olympiad-divisions-anchor"></div>
+    <div id="olympiad-gate"></div>
+    <div id="olympiad-overview" style="display:none;">
+      <div class="level-grid" id="level-grid"></div>
+    </div>
+    <div id="olympiad-exam" style="display:none;">
+      <button class="btn small" onclick="backToOlympiadOverview()">⬅ Back to Divisions</button>
+      <div style="height:14px;"></div>
+      <div class="progress-label" id="exam-progress-label">Answered 0 / 100</div>
+      <div class="progress-track"><div class="progress-fill" id="exam-progress-fill" style="width:0%"></div></div>
+      <div id="exam-list"></div>
+      <div class="btn-row">
+        <button class="btn" id="exam-prev" onclick="examPrevPage()">⬅ Previous</button>
+        <button class="btn" id="exam-next" onclick="examNextPage()">Next ➡</button>
+        <button class="btn coral" id="exam-submit" onclick="submitExam()" style="display:none;">🚨 Submit Exam</button>
+      </div>
+      <div id="exam-result" style="margin-top:20px;"></div>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
   </div>
 
-  <div class="made-with-love">Made with ❤️ by <b>Mama Jess</b></div>
+  <!-- SCHEDULE -->
+  <div class="page" id="page-schedule">
+    <div class="hero-mini">
+      <h1>📅 <span id="schedule-year-title">Event Schedule</span></h1>
+      <p>See exactly when each division's Olympiad exam opens this year.</p>
+    </div>
+    <div class="card">
+      <p class="muted" style="margin:0;">The Math Word Problem Detective Olympiad runs every year from <b>July to November</b> — one division opens each month, from easiest to hardest. Each division's exam window is open for that entire month only. Registration opens in <b>June</b>, so you can sign up before your division's month begins.</p>
+    </div>
+    <div class="demo-note" style="margin-bottom:14px;">Fees shown are suggested global registration prices in USD and may be adjusted for local currency or regional pricing. All fees are non-refundable — see Olympiad Rules for details.</div>
+    <div class="card">
+      <div style="overflow-x:auto;">
+        <table class="rank-table" id="schedule-table">
+          <thead><tr><th>Division</th><th>Age Range</th><th>Fee</th><th>Month</th><th>Coverage</th><th>Status</th><th>Note</th></tr></thead>
+          <tbody id="schedule-list"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="page" id="page-why">
+    <div class="hero-mini">
+      <div class="badge">🧠 Real Talk</div>
+      <h1><span class="swing-emoji">💡</span><br>Why Master Word Problems?</h1>
+      <p>Because every job on Earth is really just word problems in disguise.</p>
+    </div>
+    <div class="card">
+      <p style="font-weight:700; font-size:14.5px; line-height:1.7; margin:0;">A word problem isn't just a school thing. It's a story with a question hiding inside it — and reading past the story to find the real question is a skill that never stops being useful. Doctors, engineers, chefs, astronauts, and CEOs all solve word problems every single day. They just don't call them that anymore — they call it "the job."</p>
+    </div>
+    <div class="why-grid" id="why-career-grid"></div>
+    <div class="card" style="background: linear-gradient(135deg, #f6f3ff, #eafff1); border-color: var(--grape-dark); margin-top:20px;">
+      <h3 style="font-family:'Baloo 2',sans-serif; margin-top:0;">🌟 Even the smartest people in the world deal with word problems</h3>
+      <p style="font-weight:700; font-size:14px; line-height:1.7; margin:0;">The world's top scientists work out how much fuel a rocket needs. The world's top CEOs work out whether a business idea will make or lose money. World leaders work out how to feed millions of people with a limited budget. None of that is possible without the exact same skill you're building right here with the CLUES method: read carefully, find the real question, and choose the right operation. Every case you solve is practice for a lifetime of solving them — the numbers just get bigger.</p>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
+
+  <!-- RANKINGS -->
+  <div class="page" id="page-rankings">
+    <div class="hero-mini">
+      <h1>🏆 Olympiad Rankings</h1>
+      <p>See how detectives rank up around the world, by continent or country.</p>
+    </div>
+    <div class="tab-row" id="rank-level-tabs"></div>
+    <div class="filter-row">
+      <div class="field" style="max-width:180px;"><label class="flabel">Ranking Year</label><select id="rank-year-filter" onchange="switchRankYear(this.value)"></select></div>
+    </div>
+    <div class="tab-row" id="rank-scope-tabs">
+      <button class="btn sky" id="rank-tab-global" onclick="switchRankScope('global')">🌐 Global</button>
+      <button class="btn" id="rank-tab-continental" onclick="switchRankScope('continental')">🗺️ Continental</button>
+      <button class="btn" id="rank-tab-national" onclick="switchRankScope('national')">🌎 National</button>
+    </div>
+    <div class="filter-row" id="rank-filters" style="display:none;">
+      <div class="field" id="rank-continent-field"><label class="flabel">Continent</label><select id="rank-continent-filter" onchange="renderRankings()"></select></div>
+      <div class="field" id="rank-country-field"><label class="flabel">Country</label><select id="rank-country-filter" onchange="renderRankings()"></select></div>
+    </div>
+    <div class="card">
+      <div style="overflow-x:auto;">
+        <table class="rank-table" id="rank-table">
+          <thead><tr id="rank-thead-row"><th>#</th><th>Detective</th><th>Score</th><th>Date</th></tr></thead>
+          <tbody id="rank-tbody"></tbody>
+        </table>
+      </div>
+      <p class="muted" id="rank-empty" style="display:none; margin-top:10px;">No rankings yet — be the first!</p>
+    </div>
+    <p class="demo-note" id="rank-note">Rankings show names and general city, visible to everyone using this app.</p>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
+
+  <!-- MERCH -->
+  <div class="page" id="page-merch">
+    <div class="hero-mini">
+      <h1>🛍️ Merch</h1>
+      <p>Shirts, caps, bags, pins, stickers, tumblers, pens, notebooks, and more!</p>
+    </div>
+    <div class="why-grid" id="merch-items-grid" style="margin-bottom:20px;"></div>
+    <div id="merch-gate"></div>
+    <div id="merch-body" style="display:none;"></div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
+
+  <!-- CONTACT US -->
+  <div class="page" id="page-contact">
+    <div class="hero-mini">
+      <h1>📩 Contact Us</h1>
+      <p>Questions, concerns, or feedback? We'd love to hear from you.</p>
+    </div>
+    <div class="card" style="max-width:520px; margin:0 auto;">
+      <div id="contact-msg" class="msg-box"></div>
+      <form onsubmit="return handleContactSubmit(event)">
+        <div class="field"><label class="flabel">Name</label><input type="text" id="contact-name" required></div>
+        <div class="field"><label class="flabel">Email</label><input type="email" id="contact-email" required></div>
+        <div class="field"><label class="flabel">Concern Category</label>
+          <select id="contact-category">
+            <option value="Account / Login Issues">Account / Login Issues</option>
+            <option value="Olympiad Registration">Olympiad Registration</option>
+            <option value="Exam / Scoring Question">Exam / Scoring Question</option>
+            <option value="Rankings Dispute">Rankings Dispute</option>
+            <option value="Merch / Prize Inquiry">Merch / Prize Inquiry</option>
+            <option value="Payment / Fees">Payment / Fees</option>
+            <option value="Technical / Bug Report">Technical / Bug Report</option>
+            <option value="School / Partnership Inquiry">School / Partnership Inquiry</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field"><label class="flabel">Message</label>
+          <textarea id="contact-message" rows="5" required style="font-family:'Nunito', sans-serif; font-size:14.5px; font-weight:700; padding:9px 12px; border-radius:10px; border:2.5px solid var(--ink); background:#fbfaff; color:var(--ink); width:100%; resize:vertical;"></textarea>
+        </div>
+        <button class="btn green" type="submit">📨 Send Message</button>
+      </form>
+      <p class="demo-note">Demo only: messages are stored for this prototype and are not actually emailed anywhere yet.</p>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
+
+  <!-- TERMS & CONDITIONS -->
+  <div class="page" id="page-terms">
+    <div class="hero-mini">
+      <h1>📄 Terms &amp; Conditions</h1>
+      <p>The ground rules for using Math Word Problem Detective.</p>
+    </div>
+    <div class="card">
+      <p class="demo-note" style="margin-bottom:12px;">Placeholder template — replace with real terms reviewed by a lawyer before launch.</p>
+      <p style="font-weight:700; font-size:13.5px; line-height:1.8;">By creating an account and participating in the Olympiad, you agree to the rules outlined in the Olympiad Rules section, including eligibility by age group, one attempt per division per year, non-refundable fees, and final rankings after the 7-day dispute window. Accounts are intended for use by children with the involvement of a parent or guardian. We reserve the right to disqualify entries found to violate fair-play rules (such as impersonation or sharing answers). These terms may be updated from time to time; continued use of the platform after changes means you accept the updated terms.</p>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY -->
+  <div class="page" id="page-privacy">
+    <div class="hero-mini">
+      <h1>🔒 Privacy Policy</h1>
+      <p>What we collect, and why, in plain language.</p>
+    </div>
+    <div class="card">
+      <p class="demo-note" style="margin-bottom:12px;">Placeholder template — replace with a real privacy policy reviewed by a lawyer before launch, especially given this product is used by children.</p>
+      <p style="font-weight:700; font-size:13.5px; line-height:1.8;">We collect the name, email, school, country, city, and age group provided at sign-up so we can run the Olympiad fairly and display rankings. This is a prototype: data is stored in simple app storage rather than a production-grade secure database, so please don't use a password you use elsewhere. Practice and Olympiad scores are used to generate rankings and certificates. We do not knowingly sell personal information. Parents or guardians may request their child's account data be reviewed or deleted by reaching out through the Contact Us page.</p>
+    </div>
+    <div class="page-footer">
+      <p>🔍 <b>Math Word Problem Detective</b> — solve smart, compete fair, celebrate every win.</p>
+      <p class="small">Have questions? Ask a parent, guardian, or teacher for help getting started.</p>
+      <p class="footer-links"><a href="#" onclick="showPage('contact'); return false;">Contact Us</a> · <a href="#" onclick="showPage('terms'); return false;">Terms &amp; Conditions</a> · <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></p>
+      <p class="footer-social"><a href="#" onclick="return false;" title="Facebook">📘</a><a href="#" onclick="return false;" title="Instagram">📷</a><a href="#" onclick="return false;" title="X / Twitter">🐦</a><a href="#" onclick="return false;" title="YouTube">▶️</a></p>
+    </div>
+  </div>
 
 </div>
 
 <script>
-  function toggleBox(id) {
-    var el = document.getElementById(id);
-    el.classList.toggle('show');
+/* ============ CONFIG ============ */
+const PAGES = ['home','auth','practice','olympiad','schedule','why','rankings','merch','contact','terms','privacy'];
+const NAV_ITEMS = [
+  {id:'home', label:'📖 CLUES Method'},
+  {id:'why', label:'🧠 Why It Matters'},
+  {id:'practice', label:'✏️ Practice'},
+  {id:'olympiad', label:'🏅 Olympiad'},
+  {id:'schedule', label:'📅 Schedule'},
+  {id:'rankings', label:'🏆 Rankings'},
+  {id:'merch', label:'🛍️ Merch'},
+  {id:'contact', label:'📩 Contact Us'},
+];
+const EXAM_COUNT = 100;
+const EXAM_PER_PAGE = 10;
+const PRACTICE_COUNT = 12;
+const COUNTRIES = ["United States","Canada","United Kingdom","Australia","Singapore","India","Philippines","Malaysia","New Zealand","Ireland","South Africa","Nigeria","Germany","France","Spain","Netherlands","UAE","Japan","South Korea","Brazil","Mexico","Other"];
+// Continental grouping using real continents (Antarctica omitted — no participants expected there).
+const CONTINENT_GROUPS = {
+  'Africa': ["South Africa","Nigeria"],
+  'Asia': ["Singapore","India","Philippines","Malaysia","Japan","South Korea","UAE"],
+  'Europe': ["United Kingdom","Ireland","Germany","France","Spain","Netherlands"],
+  'North America': ["United States","Canada","Mexico"],
+  'South America': ["Brazil"],
+  'Oceania': ["Australia","New Zealand"],
+  'Other': ["Other"],
+};
+function countryToContinent(country) {
+  for (const [cont, list] of Object.entries(CONTINENT_GROUPS)) {
+    if (list.includes(country)) return cont;
   }
+  return 'Other';
+}
 
-  function checkAnswer(inputId, boxId) {
-    var input = document.getElementById(inputId);
-    var box = document.getElementById(boxId);
-    var feedback = box.querySelector('.feedback');
-    var correct = input.getAttribute('data-answer');
-    var val = input.value.trim();
-    var match = val.match(/\d+/);
-    var num = match ? match[0] : null;
+// Eligibility is based purely on self-selected Age Group (chosen at signup) — not school grade.
+// Participants may join their own age group's division or any harder division above it, never an easier one below.
+// Grand Master Division has no upper age limit — adults are welcome to keep competing forever.
+// Season runs July (month 7) through November (month 11) — one division opens per month.
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const LEVELS = [
+  {id:1, name:'Rookie Division',      emoji:'🐣', ageRange:'Ages 3–8',   desc:'Addition & Subtraction', month:7,  types:[0,1],             diffBase:0, feeUSD:5},
+  {id:2, name:'Explorer Division',    emoji:'🧭', ageRange:'Ages 9–11',  desc:'Addition, Subtraction, Multiplication & Division', month:8,  types:[0,1,2,3],         diffBase:1, feeUSD:7},
+  {id:3, name:'Strategist Division',  emoji:'♟️', ageRange:'Ages 12–15', desc:'Addition, Subtraction, Multiplication, Division, Two-Step & Container Cases', month:9,  types:[0,1,2,3,4],       diffBase:2, feeUSD:9},
+  {id:4, name:'Master Division',      emoji:'🎓', ageRange:'Ages 16–18', desc:'Addition, Subtraction, Multiplication, Division, Two-Step, Container, Trick & No-Keyword Cases', month:10, types:[0,1,2,3,4,5,6],   diffBase:3, feeUSD:12},
+  {id:5, name:'Grand Master Division',emoji:'👑', ageRange:'Ages 19+', desc:'Every case type at maximum difficulty — Addition, Subtraction, Multiplication, Division, Two-Step, Container, Trick & No-Keyword Cases', month:11, types:[0,1,2,3,4,5,6], diffBase:4, feeUSD:15},
+];
 
-    box.classList.add('show');
+/* ============ STATE ============ */
+let currentUser = null; // {email, firstName, lastName, name, country, city, ageGroupId}
+let usersDB = {};
+let progressDB = {};
+let practiceLevel = null;
+let practiceProblems = [];
+let activeLevel = null;
+let examProblems = [];
+let examAnswers = {};
+let examPageIdx = 0;
+let examStartTime = null;
+let rankLevelId = 1;
+let rankYear = getYear();
+let rankScope = 'global';
 
-    if (num !== null && num === correct) {
-      box.classList.remove('incorrect');
-      input.style.borderColor = 'var(--grass-dark)';
-      feedback.innerHTML = '🎉 <b>Correct!</b> ';
+/* ============ SEEDED PROBLEM GENERATOR ============ */
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function randInt(rng, min, max) { return Math.floor(rng() * (max - min + 1)) + min; }
+function pick(rng, arr) { return arr[Math.floor(rng() * arr.length)]; }
+
+const NAMES = ["Maya","Liam","Ana","Jack","Mia","Sam","Ella","Noah","Zoe","Leo","Ivy","Kai","Ruby","Max","Nina"];
+const ITEMS = ["stickers","marbles","apples","pencils","cookies","balloons","toy cars","books","stamps","oranges","shells","crayons"];
+const CONTAINERS = [["box","boxes"],["basket","baskets"],["bag","bags"],["jar","jars"],["shelf","shelves"],["crate","crates"]];
+const COLORS = ["red","blue","green","yellow","purple","orange"];
+
+function genProblem(rng, index, typePool, diffBase) {
+  const tier = diffBase + Math.floor(index / 20);
+  const type = typePool[index % typePool.length];
+  const item = pick(rng, ITEMS);
+  const name = pick(rng, NAMES);
+  let a, b, text, answer;
+
+  if (type === 0) {
+    a = randInt(rng, 3 + tier*5, 12 + tier*10);
+    b = randInt(rng, 3 + tier*5, 12 + tier*10);
+    text = `${name} has ${a} ${item}. Then finds ${b} more ${item}. How many ${item} does ${name} have in all?`;
+    answer = a + b;
+  } else if (type === 1) {
+    a = randInt(rng, 10 + tier*5, 25 + tier*10);
+    b = randInt(rng, 2, a - 1);
+    text = `${name} has ${a} ${item}. ${name} gives away ${b} ${item}. How many ${item} does ${name} have left?`;
+    answer = a - b;
+  } else if (type === 2) {
+    const [csing, cplur] = pick(rng, CONTAINERS);
+    a = randInt(rng, 2 + tier, 6 + tier*2);
+    b = randInt(rng, 2 + tier, 9 + tier*2);
+    text = `There are ${a} ${cplur}. Each ${csing} has ${b} ${item}. How many ${item} are there in total?`;
+    answer = a * b;
+  } else if (type === 3) {
+    const friends = randInt(rng, 2 + tier, 6 + tier);
+    const each = randInt(rng, 2 + tier, 8 + tier*2);
+    const total = friends * each;
+    text = `${total} ${item} are shared equally among ${friends} friends. How many ${item} does each friend get?`;
+    answer = each;
+  } else if (type === 4) {
+    const others = NAMES.filter(n => n !== name);
+    const name2 = pick(rng, others);
+    a = randInt(rng, 3 + tier*3, 10 + tier*6);
+    const diff = randInt(rng, 2, 6 + tier*2);
+    const bTotal = a + diff;
+    text = `${name} has ${a} ${item}. ${name2} has ${diff} more ${item} than ${name}. How many ${item} do they have altogether?`;
+    answer = a + bTotal;
+  } else if (type === 5) {
+    const c1 = pick(rng, COLORS);
+    let c2 = pick(rng, COLORS);
+    while (c2 === c1) c2 = pick(rng, COLORS);
+    a = randInt(rng, 3 + tier*4, 14 + tier*8);
+    b = randInt(rng, 3 + tier*4, 14 + tier*8);
+    if (rng() < 0.5) {
+      text = `There are ${a} ${c1} ${item} and ${b} ${c2} ${item} in a bin. How many ${item} are in the bin?`;
+      answer = a + b;
     } else {
-      box.classList.add('incorrect');
-      input.style.borderColor = 'var(--coral-dark)';
-      feedback.innerHTML = '❌ <b>Not quite.</b> Here\'s how to solve it: ';
+      const total = a + b;
+      text = `A jar had ${total} ${item} in it. Someone took out ${a} ${item}. How many ${item} are in the jar now?`;
+      answer = total - a;
     }
+  } else if (type === 6) {
+    const others = NAMES.filter(n => n !== name);
+    const name2 = pick(rng, others);
+    const smaller = randInt(rng, 4 + tier*3, 14 + tier*6);
+    const maxDiff = Math.max(2, Math.min(smaller - 1, 6 + tier*2));
+    const diff = randInt(rng, 2, maxDiff);
+    a = smaller + diff;
+    text = `${name} has ${a} ${item}. ${name} has ${diff} more ${item} than ${name2}. How many ${item} does ${name2} have?`;
+    answer = a - diff;
+  }
+  return { text, answer };
+}
+function buildPracticeProblems(levelId) {
+  const level = LEVELS.find(l => l.id === levelId);
+  const rng = mulberry32(999 + levelId);
+  return Array.from({length: PRACTICE_COUNT}, (_, i) => genProblem(rng, i, level.types, level.diffBase));
+}
+function buildExamProblems(levelId, year) {
+  const level = LEVELS.find(l => l.id === levelId);
+  const rng = mulberry32(year*10 + levelId);
+  return Array.from({length: EXAM_COUNT}, (_, i) => genProblem(rng, i, level.types, level.diffBase));
+}
 
-    // Underline the clue words in this case's sentence
-    var card = input.closest('.practice-card');
-    if (card) {
-      var problem = card.querySelector('.problem');
-      if (problem && problem.dataset.clues) {
-        var indices = problem.dataset.clues.split(',').map(Number);
-        var words = problem.querySelectorAll('.word');
-        indices.forEach(function(i) {
-          if (words[i]) { words[i].classList.add('underlined'); }
-        });
-      }
+/* ============ TIME / SEASON / GRADE HELPERS ============ */
+function getYear() { return new Date().getFullYear(); }
+function getMonth() { return new Date().getMonth() + 1; } // 1-12
+function levelStatus(levelObj) {
+  const m = getMonth();
+  if (m < levelObj.month) return 'upcoming';
+  if (m === levelObj.month) return 'open';
+  return 'closed';
+}
+// Eligibility is based purely on the Age Group the participant selected when creating their
+// account (see LEVELS — each division IS an age group). Participants may join their own age
+// group's division or any harder division above it, but never an easier one below it — this
+// keeps younger/less-experienced kids from being outmatched by older participants sandbagging
+// a lower division. Grand Master Division (id 5) has no upper age limit — adults welcome.
+function isJoinable(levelObj, ageGroupId) {
+  return levelObj.id >= ageGroupId;
+}
+/* ============ OBFUSCATION (NOT REAL SECURITY — DEMO ONLY) ============ */
+function obfuscate(str) {
+  try { return btoa(unescape(encodeURIComponent(str))).split('').reverse().join(''); }
+  catch (e) { return str; }
+}
+
+/* ============ STORAGE ============ */
+async function safeGet(key, shared) {
+  try { const res = await window.storage.get(key, shared); return res ? res.value : null; }
+  catch (e) { return null; }
+}
+async function safeSet(key, value, shared) {
+  try { await window.storage.set(key, value, shared); } catch (e) { console.error('storage set failed', e); }
+}
+async function loadAll() {
+  const u = await safeGet('mdo-users', true); usersDB = u ? JSON.parse(u) : {};
+  const p = await safeGet('mdo-progress', true); progressDB = p ? JSON.parse(p) : {};
+  const s = await safeGet('mdo-session', false);
+  if (s) {
+    const sess = JSON.parse(s);
+    if (sess.email && usersDB[sess.email]) setCurrentUserFromRecord(sess.email, usersDB[sess.email]);
+  }
+}
+function setCurrentUserFromRecord(email, rec) {
+  currentUser = { email, firstName: rec.firstName, lastName: rec.lastName, name: `${rec.firstName} ${rec.lastName}`, school: rec.school, country: rec.country, city: rec.city, ageGroupId: rec.ageGroupId };
+}
+function saveUsers() { return safeSet('mdo-users', JSON.stringify(usersDB), true); }
+function saveProgress() { return safeSet('mdo-progress', JSON.stringify(progressDB), true); }
+function saveSession() { return safeSet('mdo-session', JSON.stringify({email: currentUser ? currentUser.email : null}), false); }
+
+async function loadLeaderboard(level, year) {
+  const raw = await safeGet(`mdo-lb-L${level}-${year}`, true);
+  return raw ? JSON.parse(raw) : [];
+}
+function saveLeaderboard(level, year, list) { return safeSet(`mdo-lb-L${level}-${year}`, JSON.stringify(list), true); }
+
+/* ============ NAV & ROUTING ============ */
+function renderNav() {
+  const linksEl = document.getElementById('nav-links');
+  linksEl.innerHTML = NAV_ITEMS.map(item => `<button class="nav-btn" data-page="${item.id}" onclick="showPage('${item.id}')">${item.label}</button>`).join('');
+  const userEl = document.getElementById('nav-user');
+  if (currentUser) {
+    userEl.innerHTML = `<span>👋 ${escapeHtml(currentUser.firstName)}</span><button onclick="logout()">Log Out</button>`;
+  } else {
+    userEl.innerHTML = `<button class="nav-btn" data-page="auth" onclick="showPage('auth')" style="background:var(--sun); color:var(--ink); border-color:var(--ink);">🪪 Log In / Sign Up</button>`;
+  }
+}
+function showPage(id) {
+  PAGES.forEach(p => document.getElementById('page-' + p).classList.remove('visible'));
+  document.getElementById('page-' + id).classList.add('visible');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.page === id));
+  if (id === 'home') { /* static CLUES guide content — no dynamic render needed */ }
+  if (id === 'practice') renderPracticePage();
+  if (id === 'olympiad') { renderHome(); renderDivisionOverview(); renderOlympiadOverview(); }
+  if (id === 'schedule') renderSchedulePage();
+  if (id === 'why') renderWhyPage();
+  if (id === 'rankings') renderRankingsPage();
+  if (id === 'merch') renderMerchPage();
+  window.scrollTo({top:0, behavior:'instant'});
+}
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function populateCountrySelects() {
+  const opts = COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
+  document.getElementById('su-country').innerHTML = opts;
+  const countryFilter = document.getElementById('rank-country-filter');
+  if (!countryFilter.dataset.populated) {
+    countryFilter.innerHTML = opts;
+    countryFilter.value = 'Philippines';
+    countryFilter.dataset.populated = '1';
+  }
+  const continentFilter = document.getElementById('rank-continent-filter');
+  if (!continentFilter.dataset.populated) {
+    continentFilter.innerHTML = Object.keys(CONTINENT_GROUPS).map(c => `<option value="${c}">${c}</option>`).join('');
+    continentFilter.value = 'Asia';
+    continentFilter.dataset.populated = '1';
+  }
+}
+function populateAgeGroupSelect() {
+  document.getElementById('su-agegroup').innerHTML = LEVELS.filter(l => l.id !== 5).map(l =>
+    `<option value="${l.id}">${l.ageRange} (${l.name.replace(' Division','')})</option>`
+  ).join('') + `<option value="5">${LEVELS[4].ageRange} (Adult / Grand Master)</option>`;
+}
+
+/* ============ HOME ============ */
+function renderHome() {
+  document.getElementById('home-year-title').textContent = getYear() + ' Olympiad';
+}
+function renderDivisionOverview() {
+  const grid = document.getElementById('division-overview-grid');
+  grid.innerHTML = LEVELS.map(l => `
+    <div class="division-flip-card ${l.id===5?'expert':''}" onclick="this.classList.toggle('flipped')">
+      <div class="division-flip-inner">
+        <div class="division-flip-front">
+          <div class="demoji">${l.emoji}</div>
+          <h3>${l.name}</h3>
+          <div class="flip-hint2">Tap to flip</div>
+        </div>
+        <div class="division-flip-back">
+          <div class="back-label2">Details</div>
+          <p class="dgrades2">${l.ageRange}</p>
+          <p class="dmonth2">${MONTH_NAMES[l.month-1]}</p>
+          <p class="ddesc2">${l.desc}</p>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+/* ============ AUTH ============ */
+function switchAuthTab(which) {
+  document.getElementById('form-login').style.display = which === 'login' ? 'block' : 'none';
+  document.getElementById('form-signup').style.display = which === 'signup' ? 'block' : 'none';
+  document.getElementById('tab-login').className = 'btn' + (which === 'login' ? ' sky' : '');
+  document.getElementById('tab-signup').className = 'btn' + (which === 'signup' ? ' sky' : '');
+  hideAuthMsg();
+}
+function showAuthMsg(text, ok) {
+  const el = document.getElementById('msg-auth');
+  el.textContent = text;
+  el.className = 'msg-box show ' + (ok ? 'ok' : 'err');
+}
+function hideAuthMsg() { document.getElementById('msg-auth').classList.remove('show'); }
+async function handleSignup(e) {
+  e.preventDefault();
+  const firstName = document.getElementById('su-first').value.trim();
+  const lastName = document.getElementById('su-last').value.trim();
+  const email = document.getElementById('su-email').value.trim().toLowerCase();
+  const password = document.getElementById('su-password').value;
+  const school = document.getElementById('su-school').value.trim();
+  const country = document.getElementById('su-country').value;
+  const city = document.getElementById('su-city').value.trim();
+  const ageGroupId = parseInt(document.getElementById('su-agegroup').value, 10);
+  if (!firstName || !lastName || !email || password.length < 4 || !ageGroupId) { showAuthMsg('Please fill every field (password 4+ characters).', false); return false; }
+  if (usersDB[email]) { showAuthMsg('An account with that email already exists — try logging in.', false); return false; }
+  usersDB[email] = { firstName, lastName, email, passObfs: obfuscate(password), school, country, city, ageGroupId, createdAt: new Date().toISOString() };
+  await saveUsers();
+  setCurrentUserFromRecord(email, usersDB[email]);
+  await saveSession();
+  renderNav();
+  showAuthMsg('Account created! Welcome, detective 🕵️', true);
+  setTimeout(() => showPage('home'), 600);
+  return false;
+}
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('li-email').value.trim().toLowerCase();
+  const password = document.getElementById('li-password').value;
+  const rec = usersDB[email];
+  if (!rec || rec.passObfs !== obfuscate(password)) { showAuthMsg('Email or password is incorrect.', false); return false; }
+  setCurrentUserFromRecord(email, rec);
+  await saveSession();
+  renderNav();
+  showAuthMsg('Welcome back, ' + rec.firstName + '!', true);
+  setTimeout(() => showPage('home'), 500);
+  return false;
+}
+async function logout() { currentUser = null; await saveSession(); renderNav(); showPage('home'); }
+
+/* ============ CONTACT US ============ */
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('contact-name').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+  const category = document.getElementById('contact-category').value;
+  const message = document.getElementById('contact-message').value.trim();
+  const msg = document.getElementById('contact-msg');
+  if (!name || !email || !message) {
+    msg.className = 'msg-box show err';
+    msg.textContent = 'Please fill in your name, email, and message.';
+    return false;
+  }
+  try {
+    const raw = await safeGet('mdo-contact-messages', true);
+    const list = raw ? JSON.parse(raw) : [];
+    list.push({ name, email, category, message, date: new Date().toISOString() });
+    await safeSet('mdo-contact-messages', JSON.stringify(list), true);
+  } catch (err) { console.error('contact save failed', err); }
+  msg.className = 'msg-box show ok';
+  msg.textContent = `Thanks, ${name}! Your ${category} message has been received. We'll get back to you at ${email} soon.`;
+  document.getElementById('contact-name').value = '';
+  document.getElementById('contact-email').value = '';
+  document.getElementById('contact-message').value = '';
+  return false;
+}
+
+/* ============ PRACTICE (account required; level chosen up front, filtered by grade) ============ */
+function renderPracticePage() {
+  const gate = document.getElementById('practice-gate');
+  const levelSelect = document.getElementById('practice-level-select');
+  const body = document.getElementById('practice-body');
+  if (!currentUser) {
+    gate.style.display = 'block';
+    gate.innerHTML = `<div class="card"><p class="muted">🔒 Practice needs a free account so we know which division fits you. <a href="#" onclick="showPage('auth'); return false;">Log in or sign up</a>.</p></div>`;
+    levelSelect.style.display = 'none';
+    body.style.display = 'none';
+    return;
+  }
+  gate.style.display = 'none';
+  if (!practiceLevel) {
+    levelSelect.style.display = 'block';
+    body.style.display = 'none';
+    renderPracticeLevelSelect();
+    return;
+  }
+  levelSelect.style.display = 'none';
+  body.style.display = 'block';
+  document.getElementById('practice-name-label').textContent = currentUser.name;
+  document.getElementById('practice-level-label').textContent = LEVELS.find(l => l.id === practiceLevel).name;
+  loadPracticeProblemsForLevel(practiceLevel);
+}
+function renderPracticeLevelSelect() {
+  const naturalName = LEVELS.find(l => l.id === currentUser.ageGroupId).name;
+  const el = document.getElementById('practice-level-select');
+  el.innerHTML = `
+    <div class="card">
+      <h3 style="font-family:'Baloo 2',sans-serif; margin-top:0;">Hi ${escapeHtml(currentUser.firstName)}! Choose a division to practice</h3>
+      <p class="muted">Your age group is <b>${escapeHtml(naturalName)}</b>. You can practice that division or any harder one above it — just not an easier one below it.</p>
+      <div class="level-grid">
+        ${LEVELS.map(l => {
+          const joinable = isJoinable(l, currentUser.ageGroupId);
+          return `
+            <div class="level-card ${joinable ? '' : 'locked'} ${l.id===5?'expert':''}">
+              <div style="font-size:34px; line-height:1; margin-bottom:6px;">${l.emoji}</div>
+              <p class="grades">${l.ageRange}</p>
+              <h3>${l.name}</h3>
+              <p class="desc">${l.desc}</p>
+              ${joinable
+                ? `<button class="btn small green" onclick="choosePracticeLevel(${l.id})">Practice ${l.name}</button>`
+                : `<button class="btn small" disabled>🔒 Below your age group</button>`}
+            </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+function choosePracticeLevel(id) { practiceLevel = id; renderPracticePage(); }
+function changePracticeLevel() { practiceLevel = null; renderPracticePage(); }
+let practiceAnswers = {};
+function loadPracticeProblemsForLevel(level) {
+  practiceProblems = buildPracticeProblems(level);
+  practiceAnswers = {};
+  document.getElementById('practice-result').innerHTML = '';
+  const listEl = document.getElementById('practice-list');
+  listEl.innerHTML = practiceProblems.map((p, i) => `
+    <div class="qcard" id="pq-${i}">
+      <div class="qnum">Case #${i+1}</div>
+      <div class="qtext">${escapeHtml(p.text)}</div>
+      <div class="qanswer-row"><input type="text" inputmode="numeric" id="pans-${i}" placeholder="Answer"></div>
+      <div class="qfeedback" id="pfb-${i}"></div>
+    </div>`).join('');
+}
+async function submitPractice() {
+  let correct = 0;
+  practiceProblems.forEach((p, i) => {
+    const input = document.getElementById('pans-' + i);
+    const card = document.getElementById('pq-' + i);
+    const fb = document.getElementById('pfb-' + i);
+    const match = input.value.trim().match(/-?\d+/);
+    const num = match ? parseInt(match[0], 10) : null;
+    const isCorrect = num === p.answer;
+    if (isCorrect) correct++;
+    card.classList.remove('correct','incorrect'); card.classList.add(isCorrect ? 'correct' : 'incorrect');
+    fb.className = 'qfeedback ' + (isCorrect ? 'correct' : 'incorrect');
+    fb.textContent = isCorrect ? '🎉 Correct!' : `❌ Correct answer: ${p.answer}`;
+  });
+  const total = practiceProblems.length;
+  document.getElementById('practice-result').innerHTML = `
+    <div class="card" style="background:#f1fdf4; border-color:var(--grass-dark);">
+      <h3 style="font-family:'Baloo 2',sans-serif; margin:0 0 6px;">Score: ${correct} / ${total} 🎯</h3>
+      <p class="muted">Great warm-up! When the Olympiad opens for this division, come compete officially.</p>
+    </div>`;
+}
+
+/* ============ OLYMPIAD ============ */
+function renderOlympiadOverview() {
+  const gate = document.getElementById('olympiad-gate');
+  const overview = document.getElementById('olympiad-overview');
+  const examEl = document.getElementById('olympiad-exam');
+  examEl.style.display = 'none';
+  if (!currentUser) {
+    gate.style.display = 'block';
+    gate.innerHTML = `<div class="card"><p class="muted">🔒 The Olympiad needs a free account so we can track your results across the season. <a href="#" onclick="showPage('auth'); return false;">Log in or sign up</a>.</p></div>`;
+    overview.style.display = 'none';
+    return;
+  }
+  gate.style.display = 'none';
+  overview.style.display = 'block';
+  const year = getYear();
+  const grid = document.getElementById('level-grid');
+  grid.innerHTML = LEVELS.map(l => {
+    const eligible = isJoinable(l, currentUser.ageGroupId);
+    const status = levelStatus(l);
+    const rec = progressDB[currentUser.email]?.levels?.[l.id]?.[year];
+    let resultHtml = '';
+    let actionHtml = '';
+    if (!eligible) {
+      actionHtml = `<button class="btn small" disabled>🔒 Below your age group</button>`;
+    } else if (rec) {
+      const pct = Math.round((rec.score / rec.total) * 100);
+      resultHtml = `<div class="level-result">Your score: ${rec.score}/${rec.total} (${pct}%)</div>`;
+      actionHtml = `<button class="btn small grape" onclick="switchRankTabAndGo(${l.id})">View Ranking</button>`;
+    } else if (status === 'open') {
+      actionHtml = `<button class="btn small green" onclick="startExam(${l.id})">Start Exam</button>`;
+    } else if (status === 'upcoming') {
+      actionHtml = `<button class="btn small" disabled>Opens in ${MONTH_NAMES[l.month-1]}</button>`;
+    } else {
+      actionHtml = `<button class="btn small coral" onclick="switchRankTabAndGo(${l.id})">View Results</button><p class="muted" style="margin-top:6px;">You didn't attempt this division in ${year}.</p>`;
     }
+    const pillLabel = !eligible ? 'LOCKED' : status === 'open' ? 'OPEN NOW' : status === 'upcoming' ? MONTH_NAMES[l.month-1] : 'CLOSED';
+    const pillClass = !eligible ? 'locked' : status;
+    return `
+      <div class="level-card ${!eligible?'locked':''} ${l.id===5?'expert':''}">
+        <span class="status-pill ${pillClass}">${pillLabel}</span>
+        <div style="font-size:34px; line-height:1; margin-bottom:6px;">${l.emoji}</div>
+        <p class="grades">${l.ageRange}</p>
+        <h3>${l.name}</h3>
+        <p class="desc">${l.desc}</p>
+        ${resultHtml}
+        ${actionHtml}
+      </div>`;
+  }).join('');
+}
+function switchRankTabAndGo(levelId) { rankLevelId = levelId; rankYear = getYear(); showPage('rankings'); }
+function startExam(levelId) {
+  activeLevel = LEVELS.find(l => l.id === levelId);
+  const year = getYear();
+  const existing = progressDB[currentUser.email]?.levels?.[levelId]?.[year];
+  if (existing) { alert('You already completed this division for ' + year + '.'); return; }
+  examProblems = buildExamProblems(levelId, year);
+  examAnswers = {};
+  examPageIdx = 0;
+  examStartTime = Date.now();
+  document.getElementById('olympiad-overview').style.display = 'none';
+  document.getElementById('olympiad-exam').style.display = 'block';
+  document.getElementById('exam-result').innerHTML = '';
+  renderExamCurrentPage();
+}
+function backToOlympiadOverview() { renderOlympiadOverview(); }
+function renderExamCurrentPage() {
+  const start = examPageIdx * EXAM_PER_PAGE;
+  const slice = examProblems.slice(start, start + EXAM_PER_PAGE);
+  document.getElementById('exam-list').innerHTML = slice.map((p, j) => {
+    const i = start + j;
+    const val = examAnswers[i] !== undefined ? examAnswers[i] : '';
+    return `
+      <div class="qcard" id="eq-${i}">
+        <div class="qnum">Case #${i+1}</div>
+        <div class="qtext">${escapeHtml(p.text)}</div>
+        <div class="qanswer-row"><input type="text" inputmode="numeric" value="${escapeHtml(val)}" oninput="examAnswers[${i}]=this.value; updateExamProgress();"></div>
+      </div>`;
+  }).join('');
+  const totalPages = Math.ceil(EXAM_COUNT / EXAM_PER_PAGE);
+  document.getElementById('exam-prev').disabled = examPageIdx === 0;
+  document.getElementById('exam-next').style.display = examPageIdx === totalPages - 1 ? 'none' : 'inline-block';
+  document.getElementById('exam-submit').style.display = examPageIdx === totalPages - 1 ? 'inline-block' : 'none';
+  updateExamProgress();
+}
+function updateExamProgress() {
+  const answered = Object.values(examAnswers).filter(v => v !== undefined && v.trim && v.trim() !== '').length;
+  document.getElementById('exam-progress-label').textContent = `Answered ${answered} / ${EXAM_COUNT}`;
+  document.getElementById('exam-progress-fill').style.width = (answered / EXAM_COUNT * 100) + '%';
+}
+function examPrevPage() { examPageIdx = Math.max(0, examPageIdx - 1); renderExamCurrentPage(); window.scrollTo({top:0, behavior:'smooth'}); }
+function examNextPage() { const tp = Math.ceil(EXAM_COUNT / EXAM_PER_PAGE); examPageIdx = Math.min(tp - 1, examPageIdx + 1); renderExamCurrentPage(); window.scrollTo({top:0, behavior:'smooth'}); }
+async function submitExam() {
+  const answeredCount = Object.values(examAnswers).filter(v => v !== undefined && v.trim && v.trim() !== '').length;
+  if (answeredCount < EXAM_COUNT) { if (!confirm(`You've only answered ${answeredCount} of ${EXAM_COUNT} cases. Submit anyway?`)) return; }
+  let correct = 0; const wrongList = [];
+  examProblems.forEach((p, i) => {
+    const val = (examAnswers[i] || '').trim();
+    const match = val.match(/-?\d+/);
+    const num = match ? parseInt(match[0], 10) : null;
+    if (num === p.answer) correct++; else wrongList.push({ i, text: p.text, answer: p.answer, given: val || '(blank)' });
+  });
+  const timeSec = Math.round((Date.now() - examStartTime) / 1000);
+  const year = getYear();
+  const levelId = activeLevel.id;
+
+  if (!progressDB[currentUser.email]) progressDB[currentUser.email] = { levels: {}, purchased: {}, prizeClaimed: {} };
+  if (!progressDB[currentUser.email].levels[levelId]) progressDB[currentUser.email].levels[levelId] = {};
+  progressDB[currentUser.email].levels[levelId][year] = { score: correct, total: EXAM_COUNT, timeSec, date: new Date().toISOString() };
+  await saveProgress();
+
+  const lb = await loadLeaderboard(levelId, year);
+  const idx = lb.findIndex(e => e.email === currentUser.email);
+  const rec = { email: currentUser.email, name: currentUser.name, school: currentUser.school, country: currentUser.country, city: currentUser.city, score: correct, total: EXAM_COUNT, timeSec, date: new Date().toISOString() };
+  if (idx === -1) lb.push(rec); else lb[idx] = rec;
+  await saveLeaderboard(levelId, year, lb);
+
+  const pct = Math.round((correct / EXAM_COUNT) * 100);
+  const tier = getTier(pct);
+  const tierLine = tier
+    ? `Tier: <b style="color:${tier.ring}">${tier.name}</b>`
+    : `<b style="color:#6b6486">Certificate of Participation</b> — score 80%+ to earn a scoring tier!`;
+  const reviewHtml = wrongList.length === 0 ? '<p class="muted">Perfect score — no mistakes to review! 🎉</p>' :
+    `<details style="margin-top:10px;"><summary style="cursor:pointer; font-weight:800; font-family:'Baloo 2',sans-serif;">Review missed cases (${wrongList.length})</summary>
+      ${wrongList.slice(0,25).map(w => `<div class="qcard incorrect"><div class="qnum">Case #${w.i+1}</div><div class="qtext">${escapeHtml(w.text)}</div><div class="qfeedback incorrect">Your answer: ${escapeHtml(w.given)} — Correct: ${w.answer}</div></div>`).join('')}
+      ${wrongList.length > 25 ? `<p class="muted">…and ${wrongList.length - 25} more.</p>` : ''}
+    </details>`;
+  document.getElementById('exam-result').innerHTML = `
+    <div class="card" style="background:#f6f3ff; border-color:var(--grape);">
+      <h3 style="font-family:'Baloo 2',sans-serif; margin:0 0 6px;">${activeLevel.name} Score: ${correct} / ${EXAM_COUNT} (${pct}%)</h3>
+      <p class="muted">Time: ${Math.floor(timeSec/60)}m ${timeSec%60}s — ${tierLine}</p>
+    </div>
+    <div id="print-area">${renderCertificateSvg(currentUser.name, correct, EXAM_COUNT, pct, tier, activeLevel)}</div>
+    <div class="badge-wrap">${renderBadgeSvg(tier, pct)}</div>
+    <div class="cert-actions">
+      <button class="btn sky" onclick="window.print()">🖨️ Print / Save Certificate as PDF</button>
+      <button class="btn grape" onclick="downloadBadge(${pct})">⬇️ Download Badge (SVG)</button>
+    </div>
+    <div class="card">
+      <div class="btn-row"><button class="btn coral" onclick="showPage('merch')">🛍️ Check Prize Eligibility</button><button class="btn" onclick="backToOlympiadOverview()">Back to Divisions</button></div>
+      ${reviewHtml}
+    </div>`;
+}
+
+/* ============ SCHEDULE ============ */
+function renderSchedulePage() {
+  const m = getMonth();
+  const year = getYear();
+  document.getElementById('schedule-year-title').textContent = `${year} Olympiad Schedule`;
+  const el = document.getElementById('schedule-list');
+  el.innerHTML = LEVELS.map(l => {
+    const status = levelStatus(l);
+    const pillLabel = status === 'open' ? 'OPEN NOW' : status === 'upcoming' ? 'Upcoming' : 'Closed';
+    let note;
+    if (status === 'open') note = `Open all through ${MONTH_NAMES[l.month-1]} ${year}.`;
+    else if (status === 'upcoming') note = `Opens ${MONTH_NAMES[l.month-1]} 1, ${year}.`;
+    else note = `Closed for ${year} — see Rankings.`;
+    return `
+      <tr>
+        <td>${l.emoji} <b>${l.name}</b></td>
+        <td>${l.ageRange}</td>
+        <td><b>$${l.feeUSD}</b> USD</td>
+        <td>${MONTH_NAMES[l.month-1]} ${year}</td>
+        <td style="white-space:normal; max-width:280px;">${l.desc}</td>
+        <td><span class="status-pill ${status}" style="margin-bottom:0;">${pillLabel}</span></td>
+        <td style="white-space:normal; max-width:180px;">${note}</td>
+      </tr>`;
+  }).join('');
+}
+
+/* ============ WHY IT MATTERS ============ */
+const WHY_CAREERS = [
+  { emoji: '👩‍⚕️', title: 'Doctors & Nurses', text: 'Calculating medication dosages, converting units, and reading vital signs correctly.' },
+  { emoji: '🚀', title: 'Engineers & Scientists', text: 'Fuel calculations, structural loads, and trajectory math that has to be exactly right.' },
+  { emoji: '💼', title: 'Entrepreneurs & CEOs', text: 'Budgets, profit margins, and knowing whether a deal actually makes sense.' },
+  { emoji: '🏗️', title: 'Architects & Builders', text: 'Measurements, material estimates, and keeping a project on budget.' },
+  { emoji: '🍳', title: 'Chefs & Bakers', text: 'Scaling recipes up or down and figuring out cost per serving.' },
+  { emoji: '🎮', title: 'Game Designers', text: 'Probability, scoring systems, and in-game economies that feel fair.' },
+  { emoji: '🌍', title: 'World Leaders', text: 'Budgets, population statistics, and allocating limited resources fairly.' },
+  { emoji: '🛒', title: 'Everyday Life', text: 'Shopping discounts, trip planning, splitting bills, and budgeting an allowance.' },
+];
+function renderWhyPage() {
+  document.getElementById('why-career-grid').innerHTML = WHY_CAREERS.map(c => `
+    <div class="why-card">
+      <div class="wemoji">${c.emoji}</div>
+      <h3>${c.title}</h3>
+      <p>${c.text}</p>
+    </div>`).join('');
+}
+
+/* ============ RANKINGS ============ */
+function yearOptions() {
+  const y = getYear();
+  const opts = [];
+  for (let i = 0; i < 10; i++) opts.push(y - i);
+  return opts;
+}
+function renderRankingsPage() {
+  populateCountrySelects();
+  document.getElementById('rank-level-tabs').innerHTML = LEVELS.map(l => `<button class="btn ${rankLevelId===l.id?'sky':''}" onclick="switchRankLevel(${l.id})">${l.emoji} ${l.name}</button>`).join('');
+  const yearSelect = document.getElementById('rank-year-filter');
+  if (!yearSelect.dataset.populated) {
+    yearSelect.innerHTML = yearOptions().map(y => `<option value="${y}">${y}</option>`).join('');
+    yearSelect.dataset.populated = '1';
+  }
+  yearSelect.value = rankYear;
+  ['global','continental','national'].forEach(s => {
+    document.getElementById('rank-tab-' + s).className = 'btn' + (rankScope === s ? ' sky' : '');
+  });
+  document.getElementById('rank-scope-tabs').style.display = 'flex';
+  document.getElementById('rank-filters').style.display = rankScope === 'global' ? 'none' : 'flex';
+  document.getElementById('rank-continent-field').style.display = rankScope === 'continental' ? 'block' : 'none';
+  document.getElementById('rank-country-field').style.display = rankScope === 'national' ? 'block' : 'none';
+  document.getElementById('rank-note').textContent = 'Rankings show names and general city, visible to everyone using this app.';
+  renderRankings();
+}
+function switchRankLevel(id) { rankLevelId = id; renderRankingsPage(); }
+function switchRankScope(scope) { rankScope = scope; renderRankingsPage(); }
+function switchRankYear(y) { rankYear = parseInt(y, 10); renderRankings(); }
+async function renderRankings() {
+  const rawList = await loadLeaderboard(rankLevelId, rankYear);
+  let filtered = rawList.slice();
+  if (rankScope === 'continental') {
+    const continent = document.getElementById('rank-continent-filter').value;
+    if (continent) filtered = filtered.filter(e => countryToContinent(e.country) === continent);
+  } else if (rankScope === 'national') {
+    const country = document.getElementById('rank-country-filter').value;
+    if (country) filtered = filtered.filter(e => e.country === country);
+  }
+  // rankScope === 'global' applies no filter at all
+  filtered.sort((a,b) => b.score - a.score || a.timeSec - b.timeSec);
+  document.getElementById('rank-thead-row').innerHTML = `<th>#</th><th>Detective</th><th>Country</th><th>City</th><th>School</th><th>Score</th><th>Time</th><th>Date</th>`;
+  const tbody = document.getElementById('rank-tbody');
+  document.getElementById('rank-empty').style.display = filtered.length === 0 ? 'block' : 'none';
+  tbody.innerHTML = filtered.slice(0, 50).map((e, i) => {
+    const mine = currentUser && e.email === currentUser.email;
+    const medal = i === 0 ? '<span class="medal">🥇</span>' : i === 1 ? '<span class="medal">🥈</span>' : i === 2 ? '<span class="medal">🥉</span>' : (i < 10 ? '<span class="medal">🏅</span>' : '');
+    const timeStr = `${Math.floor(e.timeSec/60)}m ${e.timeSec%60}s`;
+    return `<tr class="${mine ? 'me' : ''}"><td class="rank-num">${medal}${i+1}</td><td>${escapeHtml(e.name)}${mine ? ' (you)' : ''}</td><td>${escapeHtml(e.country||'')}</td><td>${escapeHtml(e.city||'')}</td><td>${escapeHtml(e.school||'—')}</td><td>${e.score}/${e.total}</td><td>${timeStr}</td><td>${new Date(e.date).toLocaleDateString()}</td></tr>`;
+  }).join('');
+}
+
+/* ============ MERCH & PRIZES (certificate/badge are free — no paywall) ============ */
+function getTier(pct) {
+  if (pct >= 95) return { name: 'Gold Detective', fill: 'var(--gold)', ring: 'var(--gold-dark)' };
+  if (pct >= 90) return { name: 'Silver Detective', fill: 'var(--silver)', ring: 'var(--silver-dark)' };
+  if (pct >= 85) return { name: 'Bronze Detective', fill: 'var(--bronze)', ring: 'var(--bronze-dark)' };
+  if (pct >= 80) return { name: 'Rookie Detective', fill: 'var(--grape)', ring: 'var(--grape-dark)' };
+  return null; // below 80% earns a Certificate of Participation instead of a scoring tier
+}
+const MERCH_ITEMS = [
+  { emoji: '👕', name: 'Shirt' },
+  { emoji: '🧢', name: 'Cap' },
+  { emoji: '🎒', name: 'Bag' },
+  { emoji: '📌', name: 'Pin' },
+  { emoji: '🏷️', name: 'Sticker' },
+  { emoji: '🥤', name: 'Tumbler' },
+  { emoji: '🖊️', name: 'Pen' },
+  { emoji: '📓', name: 'Notebook' },
+];
+function renderMerchItemsGrid() {
+  document.getElementById('merch-items-grid').innerHTML = MERCH_ITEMS.map(m => `
+    <div class="why-card">
+      <div class="wemoji">${m.emoji}</div>
+      <h3>${m.name}</h3>
+      <p>Placeholder — based on availability</p>
+    </div>`).join('');
+}
+async function renderMerchPage() {
+  renderMerchItemsGrid();
+  const gate = document.getElementById('merch-gate');
+  const body = document.getElementById('merch-body');
+  if (!currentUser) {
+    gate.style.display = 'block';
+    gate.innerHTML = `<div class="card"><p class="muted">🔒 Please <a href="#" onclick="showPage('auth'); return false;">log in or sign up</a> first.</p></div>`;
+    body.style.display = 'none';
+    return;
+  }
+  gate.style.display = 'none';
+  body.style.display = 'block';
+  const year = getYear();
+  const prog = progressDB[currentUser.email];
+  const completedLevels = LEVELS.filter(l => prog?.levels?.[l.id]?.[year]);
+  if (completedLevels.length === 0) {
+    body.innerHTML = `<div class="card"><p class="muted">You haven't completed any Olympiad divisions yet in ${year}. Finish a division for a shot at physical merch prizes! Your certificate and badge are available right after you finish the exam.</p><div class="btn-row"><button class="btn grape" onclick="showPage('olympiad')">Go to Olympiad</button></div></div>`;
+    return;
+  }
+  let html = `<div class="tab-row">` + completedLevels.map((l,i) => `<button class="btn ${i===0 ? 'sky':''}" data-merch-level="${l.id}" onclick="selectMerchLevel(${l.id})">${l.emoji} ${l.name}</button>`).join('') + `</div><div id="merch-detail">Loading…</div>`;
+  body.innerHTML = html;
+  await selectMerchLevel(completedLevels[0].id);
+}
+async function selectMerchLevel(levelId) {
+  activeLevel = LEVELS.find(l => l.id === levelId);
+  document.querySelectorAll('#merch-body [data-merch-level]').forEach(b => b.className = 'btn' + (parseInt(b.dataset.merchLevel,10) === levelId ? ' sky' : ''));
+  const year = getYear();
+  const rec = progressDB[currentUser.email].levels[levelId][year];
+  const status = levelStatus(activeLevel);
+  const detail = document.getElementById('merch-detail');
+
+  let rank = null;
+  if (status === 'closed') {
+    const lb = await loadLeaderboard(levelId, year);
+    const sorted = lb.slice().sort((a,b) => b.score - a.score || a.timeSec - b.timeSec);
+    rank = sorted.findIndex(e => e.email === currentUser.email) + 1;
+  }
+  const isTop10 = rank && rank <= 10;
+  const prizeKey = `${levelId}_${year}`;
+
+  let prizeHtml = '';
+  if (status !== 'closed') {
+    prizeHtml = `<p class="muted">Final rankings & prizes for ${activeLevel.name} are announced after ${MONTH_NAMES[activeLevel.month-1]} closes.</p>`;
+  } else if (isTop10) {
+    const medal = rank === 1 ? '🥇 1st Place' : rank === 2 ? '🥈 2nd Place' : rank === 3 ? '🥉 3rd Place' : `🏅 Top 10 (#${rank})`;
+    const claimed = progressDB[currentUser.email].prizeClaimed?.[prizeKey];
+    prizeHtml = `
+      <div class="prize-card">
+        <h3 style="font-family:'Baloo 2',sans-serif; margin:0 0 6px;">${medal} — ${activeLevel.name}, ${year}</h3>
+        <p style="font-weight:700; font-size:13.5px;">You placed in the National Top 10! Your merch prize pack may include items like a medal/pin, badge, shirt, or cap — based on availability, not guaranteed to be these exact items.</p>
+        ${claimed
+          ? `<p class="muted">✅ Prize claimed — we'll email shipping details to ${escapeHtml(currentUser.email)}.</p>`
+          : `<button class="btn coral" onclick="claimPrize('${prizeKey}')">🎁 Claim My Merch Prize</button>
+             <p class="demo-note">Demo only: for a real launch, collect shipping addresses through a secure external form — never store home addresses in this app's storage.</p>`}
+      </div>`;
+  } else {
+    prizeHtml = `<p class="muted">Final national rank for ${activeLevel.name} ${year}: #${rank}. Top 10 nationally win physical merch prizes — keep practicing for next year!</p>`;
   }
 
-  function wrapWordsForClicking() {
-    var problems = document.querySelectorAll('.practice-card .problem');
-    problems.forEach(function(p) {
-      var text = p.textContent;
-      var tokens = text.split(/(\s+)/); // keep whitespace as separate tokens
-      var html = '';
-      tokens.forEach(function(tok) {
-        if (tok.trim() === '') {
-          html += tok;
-        } else {
-          html += '<span class="word" onclick="this.classList.toggle(\'underlined\')">' + tok + '</span>';
-        }
-      });
-      p.innerHTML = html;
+  detail.innerHTML = `
+    <div class="card"><h3 style="font-family:'Baloo 2',sans-serif; margin-top:0;">${activeLevel.name}</h3>
+      <p class="muted">Score: ${rec.score} / ${rec.total}. Looking for your certificate or badge? Those are available right on the exam result screen after you finish a division.</p>
+      ${prizeHtml}
+    </div>`;
+}
+async function claimPrize(prizeKey) {
+  if (!progressDB[currentUser.email].prizeClaimed) progressDB[currentUser.email].prizeClaimed = {};
+  progressDB[currentUser.email].prizeClaimed[prizeKey] = true;
+  await saveProgress();
+  selectMerchLevel(activeLevel.id);
+}
+function renderCertificateSvg(name, score, total, pct, tier, level) {
+  const date = new Date().toLocaleDateString();
+  const t = tier || { name: 'Certificate of Participation', ring: '#9b93c2' };
+  const title = tier ? 'Certificate of Achievement' : 'Certificate of Participation';
+  const verb = tier ? 'has successfully completed' : 'participated in';
+  const tierLine = tier ? `<text x="350" y="328" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="700" font-size="17" fill="${t.ring}">${tier.name}</text>` : '';
+  return `
+  <div class="card" style="padding:0; overflow:hidden;">
+    <svg viewBox="0 0 700 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; display:block;">
+      <rect x="0" y="0" width="700" height="460" fill="#fff8ec"/>
+      <rect x="14" y="14" width="672" height="432" fill="none" stroke="${t.ring}" stroke-width="6" rx="18"/>
+      <rect x="26" y="26" width="648" height="408" fill="none" stroke="${t.ring}" stroke-width="2" stroke-dasharray="6 6" rx="12"/>
+      <text x="350" y="82" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="26" fill="#7d4bc4">${title}</text>
+      <text x="350" y="112" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700" font-size="13.5" fill="#55506e">Math Word Problem Detective — ${escapeHtml(level.name)} (${escapeHtml(level.ageRange)}) — ${getYear()}</text>
+      <text x="350" y="185" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700" font-size="16" fill="#2f2a4a">This certifies that</text>
+      <text x="350" y="230" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="32" fill="#e6503f">${escapeHtml(name)}</text>
+      <text x="350" y="268" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700" font-size="14" fill="#2f2a4a">${verb} ${escapeHtml(level.name)}: ${escapeHtml(level.desc)}</text>
+      <text x="350" y="298" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="16" fill="#2f9e4f">Score: ${score} / ${total} (${pct}%)</text>
+      ${tierLine}
+      <text x="140" y="410" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700" font-size="12" fill="#6b6486">Date: ${date}</text>
+      <text x="560" y="410" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700" font-size="12" fill="#6b6486">Math Word Problem Detective</text>
+    </svg>
+  </div>`;
+}
+function renderBadgeSvg(tier, pct) {
+  const t = tier || { name: 'Participant', fill: 'var(--grape)', ring: 'var(--grape-dark)' };
+  const label = tier ? t.name : 'Participant';
+  return `
+    <svg viewBox="0 0 200 220" width="180" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,150 60,210 80,175 60,175 100,150" fill="${t.ring}"/>
+      <polygon points="100,150 140,210 120,175 140,175 100,150" fill="${t.ring}"/>
+      <circle cx="100" cy="95" r="80" fill="${t.fill}" stroke="#2f2a4a" stroke-width="5"/>
+      <circle cx="100" cy="95" r="62" fill="#fff8ec" stroke="#2f2a4a" stroke-width="3"/>
+      <text x="100" y="80" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="26" fill="#2f2a4a">🔍</text>
+      <text x="100" y="108" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="#2f2a4a">${pct}%</text>
+      <text x="100" y="124" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="9" fill="#2f2a4a">${tier ? 'CERTIFIED' : 'PARTICIPANT'}</text>
+    </svg>
+    <p style="text-align:center; font-family:'Baloo 2',sans-serif; font-weight:700; color:${t.ring}; margin-top:-6px;">${label}</p>`;
+}
+function downloadBadge(pct) {
+  const tier = getTier(pct);
+  const t = tier || { fill: 'var(--grape)', ring: 'var(--grape-dark)' };
+  const label = tier ? 'CERTIFIED' : 'PARTICIPANT';
+  const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+    <polygon points="100,150 60,210 80,175 60,175 100,150" fill="${t.ring}"/>
+    <polygon points="100,150 140,210 120,175 140,175 100,150" fill="${t.ring}"/>
+    <circle cx="100" cy="95" r="80" fill="${t.fill}" stroke="#2f2a4a" stroke-width="5"/>
+    <circle cx="100" cy="95" r="62" fill="#fff8ec" stroke="#2f2a4a" stroke-width="3"/>
+    <text x="100" y="80" text-anchor="middle" font-family="Arial" font-weight="800" font-size="24" fill="#2f2a4a">DETECTIVE</text>
+    <text x="100" y="108" text-anchor="middle" font-family="Arial" font-weight="800" font-size="13" fill="#2f2a4a">${pct}%</text>
+    <text x="100" y="124" text-anchor="middle" font-family="Arial" font-weight="800" font-size="9" fill="#2f2a4a">${label}</text>
+  </svg>`;
+  const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'detective-badge.svg';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+/* ============ CLUES METHOD GUIDE INTERACTIONS (home page) ============ */
+function toggleBox(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('show');
+}
+function checkAnswer(inputId, boxId) {
+  const input = document.getElementById(inputId);
+  const box = document.getElementById(boxId);
+  const feedback = box.querySelector('.feedback');
+  const correct = input.getAttribute('data-answer');
+  const val = input.value.trim();
+  const match = val.match(/\d+/);
+  const num = match ? match[0] : null;
+
+  box.classList.add('show');
+  if (num !== null && num === correct) {
+    box.classList.remove('incorrect');
+    input.style.borderColor = 'var(--grass-dark)';
+    feedback.innerHTML = '🎉 <b>Correct!</b> ';
+  } else {
+    box.classList.add('incorrect');
+    input.style.borderColor = 'var(--coral-dark)';
+    feedback.innerHTML = '❌ <b>Not quite.</b> Here\'s how to solve it: ';
+  }
+  const card = input.closest('.practice-card');
+  if (card) {
+    const problem = card.querySelector('.problem');
+    if (problem && problem.dataset.clues) {
+      const indices = problem.dataset.clues.split(',').map(Number);
+      const words = problem.querySelectorAll('.word');
+      indices.forEach(i => { if (words[i]) words[i].classList.add('underlined'); });
+    }
+  }
+}
+function wrapWordsForClicking() {
+  const problems = document.querySelectorAll('#page-home .practice-card .problem');
+  problems.forEach(p => {
+    const text = p.textContent;
+    const tokens = text.split(/(\s+)/);
+    let html = '';
+    tokens.forEach(tok => {
+      if (tok.trim() === '') html += tok;
+      else html += '<span class="word" onclick="this.classList.toggle(\'underlined\')">' + tok + '</span>';
     });
-  }
+    p.innerHTML = html;
+  });
+}
 
+/* ============ INIT ============ */
+async function init() {
+  await loadAll();
+  populateCountrySelects();
+  populateAgeGroupSelect();
+  renderNav();
+  switchAuthTab('login');
   wrapWordsForClicking();
+  showPage('home');
+}
+init();
 </script>
 </body>
 </html>
