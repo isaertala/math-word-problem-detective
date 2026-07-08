@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Word Problem Detective Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #3ec6ff;
+    --sky-dark: #1a9fd8;
+    --sun: #ffc93c;
+    --sun-dark: #f2a900;
+    --coral: #ff6f5e;
+    --coral-dark: #e6503f;
+    --grass: #4cc26c;
+    --grass-dark: #2f9e4f;
+    --grape: #9b6bdf;
+    --grape-dark: #7d4bc4;
+    --cream: #fff8ec;
+    --ink: #2f2a4a;
+    --paper: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 12%, rgba(62,198,255,0.18), transparent 40%),
+      radial-gradient(circle at 92% 8%, rgba(255,201,60,0.22), transparent 38%),
+      radial-gradient(circle at 85% 90%, rgba(155,107,223,0.16), transparent 42%),
+      radial-gradient(circle at 10% 92%, rgba(76,194,108,0.16), transparent 38%),
+      var(--cream);
+    padding: 28px 18px 50px;
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    text-align: center;
+    position: relative;
+    margin-bottom: 34px;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: var(--sun);
+    color: var(--ink);
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 6px 18px;
+    border-radius: 999px;
+    border: 3px solid var(--ink);
+    transform: rotate(-3deg);
+    box-shadow: 3px 3px 0 var(--ink);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 1.05;
+    margin: 0 0 8px;
+    color: var(--grape-dark);
+    text-shadow: 3px 3px 0 rgba(255,255,255,0.7);
+  }
+  .hero h1 span { color: var(--coral); }
+  .hero .mag {
+    font-size: 52px;
+    display: inline-block;
+    animation: swing 3.2s ease-in-out infinite;
+    transform-origin: 70% 20%;
+  }
+  @keyframes swing {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+  }
+  .hero p.sub {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--paper);
+    background: var(--grape);
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 14px;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin: 0 0 18px;
+  }
+  .section { margin-bottom: 44px; }
+
+  /* ---------- CLUES STEPS (FLIP CARDS) ---------- */
+  .clues-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 760px) {
+    .clues-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .clue-card {
+    background: transparent;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .clue-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .clue-card.flipped .clue-card-inner {
+    transform: rotateY(180deg);
+  }
+  .clue-card-front, .clue-card-back {
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 3px solid var(--ink);
+    border-radius: 16px;
+    padding: 14px 10px 16px;
+    text-align: center;
+    box-shadow: 4px 4px 0 var(--ink);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .clue-card-front { background: var(--paper); }
+  .clue-card-back {
+    background: #f6f3ff;
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .clue-letter {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 50%;
+    color: white;
+    margin: 0 auto 8px;
+    border: 3px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .clue-card:nth-child(1) .clue-letter { background: var(--sky); }
+  .clue-card:nth-child(2) .clue-letter { background: var(--grass); }
+  .clue-card:nth-child(3) .clue-letter { background: var(--sun-dark); }
+  .clue-card:nth-child(4) .clue-letter { background: var(--coral); }
+  .clue-card:nth-child(5) .clue-letter { background: var(--grape); }
+  .clue-card .icon { font-size: 26px; margin-bottom: 4px; }
+  .clue-card h3 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 15px;
+    margin: 4px 0 6px;
+    color: var(--ink);
+  }
+  .clue-card p {
+    font-size: 12.5px;
+    font-weight: 700;
+    margin: 0;
+    color: #55506e;
+    line-height: 1.35;
+  }
+  .clue-card-back .back-label {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--grape-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .clue-card-back .example-text {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .clue-card-back .flip-hint {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #9b93c2;
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .clue-card-front .flip-hint {
+    font-size: 10px;
+    font-weight: 700;
+    color: #b3acd6;
+    margin-top: auto;
+    padding-top: 6px;
+    font-style: italic;
+  }
+
+  .clues-banner {
+    text-align: center;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin-top: 14px;
+    font-weight: 700;
+  }
+  .clues-banner b { color: var(--coral-dark); }
+
+  /* ---------- KEYWORD BANK ---------- */
+  .keyword-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 620px) {
+    .keyword-cols { grid-template-columns: 1fr; }
+  }
+  .kw-box {
+    border-radius: 18px;
+    border: 3px solid var(--ink);
+    padding: 16px 18px 18px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .kw-box.add { background: #eafff1; }
+  .kw-box.sub { background: #fff0ee; }
+  .kw-box.mul { background: #eaf6ff; }
+  .kw-box.div { background: #f4eeff; }
+  .kw-box.misc { background: #fff8e0; grid-column: 1 / -1; }
+  .kw-box.container { background: #e6fbf8; grid-column: 1 / -1; }
+  .kw-box h3 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 19px;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .kw-box.add h3 { color: var(--grass-dark); }
+  .kw-box.sub h3 { color: var(--coral-dark); }
+  .kw-box.mul h3 { color: var(--sky-dark); }
+  .kw-box.div h3 { color: var(--grape-dark); }
+  .kw-box.misc h3 { color: var(--sun-dark); }
+  .kw-box.container h3 { color: #0f9488; }
+  .kw-box .op {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    border: 2px solid var(--ink);
+  }
+  .kw-box.add .op { background: var(--grass); }
+  .kw-box.sub .op { background: var(--coral); }
+  .kw-box.mul .op { background: var(--sky); }
+  .kw-box.div .op { background: var(--grape); }
+  .kw-box.misc .op { background: var(--sun-dark); font-size: 15px; }
+  .kw-box.container .op { background: #0f9488; font-size: 16px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip {
+    font-weight: 800;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+    background: white;
+  }
+  .kw-box.add .chip { color: var(--grass-dark); }
+  .kw-box.sub .chip { color: var(--coral-dark); }
+  .kw-box.mul .chip { color: var(--sky-dark); }
+  .kw-box.div .chip { color: var(--grape-dark); }
+  .kw-box.misc .chip { color: var(--sun-dark); }
+  .kw-box.container .chip { color: #0f9488; }
+  .misc-example {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: white;
+    border: 2px dashed var(--sun-dark);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .container-example {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: white;
+    border: 2px dashed #0f9488;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .clue-example {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: white;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .clue-example.add { border: 2px dashed var(--grass-dark); }
+  .clue-example.sub { border: 2px dashed var(--coral-dark); }
+  .clue-example.mul { border: 2px dashed var(--sky-dark); }
+  .clue-example.div { border: 2px dashed var(--grape-dark); }
+  .kw-highlight {
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 5px;
+  }
+  .kw-highlight.add { background: #c7f2d6; color: var(--grass-dark); }
+  .kw-highlight.sub { background: #ffd9d3; color: var(--coral-dark); }
+  .kw-highlight.mul { background: #cdecff; color: var(--sky-dark); }
+  .kw-highlight.div { background: #e2d3fb; color: var(--grape-dark); }
+  .kw-highlight.container { background: #c3f2ec; color: #0f9488; }
+  .kw-disclaimer {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #f5f3ff;
+    border: 2px solid var(--grape);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* ---------- WORKED EXAMPLE ---------- */
+  .example-card {
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    padding: 22px 24px 26px;
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .example-problem {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.7;
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    background: #f6f3ff;
+    border-radius: 12px;
+    border: 2px dashed var(--grape);
+  }
+  .tag-number {
+    background: var(--sky);
+    color: white;
+    padding: 1px 9px;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+    font-weight: 800;
+  }
+  .tag-keyword {
+    background: var(--sun);
+    padding: 1px 8px;
+    border-radius: 6px;
+    border: 2px solid var(--ink);
+    font-weight: 800;
+  }
+  .tag-question {
+    text-decoration: underline;
+    text-decoration-color: var(--coral);
+    text-decoration-thickness: 4px;
+    text-underline-offset: 4px;
+    font-weight: 800;
+  }
+  .example-steps { display: flex; flex-direction: column; gap: 10px; }
+  .estep {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    background: #fbfaff;
+    border-radius: 12px;
+    border: 2px solid #e3ddf7;
+  }
+  .estep .letter {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    color: white;
+    width: 32px; height: 32px; min-width: 32px;
+    border-radius: 50%;
+    text-align: center; line-height: 32px;
+    border: 2px solid var(--ink);
+  }
+  .estep:nth-child(1) .letter { background: var(--sky); }
+  .estep:nth-child(2) .letter { background: var(--grass); }
+  .estep:nth-child(3) .letter { background: var(--sun-dark); }
+  .estep:nth-child(4) .letter { background: var(--coral); }
+  .estep:nth-child(5) .letter { background: var(--grape); }
+  .estep p { margin: 0; font-weight: 700; font-size: 14.5px; line-height: 1.5; }
+  .estep p b { color: var(--grape-dark); }
+
+  /* ---------- PRACTICE ---------- */
+  .practice-card {
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    padding: 20px 22px 22px;
+    box-shadow: 5px 5px 0 var(--ink);
+    margin-bottom: 20px;
+  }
+  .practice-card .ptitle {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 16px;
+    color: var(--grape-dark);
+    margin: 0 0 8px;
+  }
+  .practice-card .problem {
+    font-size: 16.5px;
+    font-weight: 800;
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+  .practice-card .problem .word {
+    cursor: pointer;
+    padding: 1px 2px;
+    border-radius: 4px;
+  }
+  .practice-card .problem .word:hover {
+    background: #f0ecff;
+  }
+  .practice-card .problem .word.underlined {
+    text-decoration: underline;
+    text-decoration-color: var(--coral);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+    background: #fff0ee;
+  }
+  .practice-card .hint-note {
+    font-size: 11.5px;
+    font-weight: 700;
+    font-style: italic;
+    color: #8a84a8;
+    margin: -8px 0 14px;
+  }
+  .practice-card .answer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .practice-card .answer-row label {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .practice-card .answer-input {
+    flex: 1;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 2.5px solid var(--ink);
+    background: #fbfaff;
+    color: var(--ink);
+  }
+  .practice-card .answer-input:focus {
+    outline: none;
+    border-color: var(--grape);
+    background: white;
+  }
+  .pro-tip {
+    background: #fff8e0;
+    border: 3px dashed var(--sun-dark);
+    border-radius: 16px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #7a5b00;
+    line-height: 1.5;
+  }
+  .pro-tip b {
+    font-family: 'Baloo 2', sans-serif;
+    color: var(--coral-dark);
+  }
+  .made-with-love {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #8a84a8;
+  }
+  .made-with-love b {
+    color: var(--coral-dark);
+  }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  button.reveal-btn {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    border-radius: 999px;
+    border: 3px solid var(--ink);
+    padding: 8px 16px;
+    cursor: pointer;
+    background: var(--sun);
+    color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s ease;
+  }
+  button.reveal-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  button.reveal-btn.answer-btn { background: var(--grass); color: white; }
+  .reveal-box {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .reveal-box.hint { background: #fff7e0; border: 2px solid var(--sun-dark); color: #7a5b00; }
+  .reveal-box.answer { background: #e9fbee; border: 2px solid var(--grass-dark); color: #1c6e34; }
+  .reveal-box.answer.incorrect { background: #fff0ee; border: 2px solid var(--coral-dark); color: #8a2e22; }
+  .reveal-box.incorrect .stamp { display: none; }
+  .reveal-box.show { display: block; }
+  .feedback { font-family: 'Baloo 2', sans-serif; }
+  .stamp {
+    display: inline-block;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    color: var(--coral-dark);
+    border: 3px solid var(--coral-dark);
+    border-radius: 8px;
+    padding: 2px 10px;
+    transform: rotate(-6deg);
+    margin-left: 8px;
+    font-size: 12px;
+  }
+
+  /* ---------- FOOTER REMINDER ---------- */
+  .reminder {
+    text-align: center;
+    background: var(--grape);
+    color: white;
+    border-radius: 18px;
+    border: 3px solid var(--ink);
+    padding: 18px 20px;
+    box-shadow: 5px 5px 0 var(--ink);
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+  .reminder .small {
+    font-family: 'Nunito', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    opacity: 0.9;
+    margin-top: 6px;
+  }
+
+  /* ---------- MOBILE: STACK EVERYTHING VERTICALLY ---------- */
+  @media (max-width: 600px) {
+    body { padding: 18px 12px 36px; }
+
+    .hero .badge { font-size: 12.5px; padding: 5px 14px; }
+    .hero h1 { font-size: 32px; }
+    .hero .mag { font-size: 38px; }
+    .hero p.sub { font-size: 15px; padding: 0 4px; }
+
+    .section-title { font-size: 20px; padding: 7px 16px; }
+
+    /* Stack the CLUES cards fully vertically */
+    .clues-grid { grid-template-columns: 1fr; }
+
+    /* Keyword bank already stacks at 620px, keep single column */
+    .keyword-cols { grid-template-columns: 1fr; }
+
+    .kw-box { padding: 14px 14px 16px; }
+    .chip { font-size: 12px; padding: 5px 10px; }
+
+    .example-problem { font-size: 16px; padding: 12px; }
+
+    .estep { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .estep .letter { margin-bottom: 2px; }
+
+    .practice-card { padding: 16px 16px 18px; }
+    .practice-card .problem { font-size: 15px; }
+
+    /* Stack answer label above input on narrow screens */
+    .practice-card .answer-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+    .practice-card .answer-row label { white-space: normal; }
+
+    .btn-row { flex-direction: column; }
+    .btn-row button.reveal-btn { width: 100%; }
+
+    .reminder { font-size: 15px; padding: 16px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">Awesome Mathematics</div>
+    <h1><span class="mag">🔍</span><br>Math Word Problem <span>Detective</span></h1>
+    <p class="sub">Every word problem is a mystery. Let's solve it like a real detective! 🕵️</p>
+  </div>
+
+  <!-- CLUES METHOD -->
+  <div class="section">
+    <div class="section-title">🧭 The C.L.U.E.S. Method</div>
+    <div class="clues-grid">
+      <div class="clue-card" onclick="this.classList.toggle('flipped')">
+        <div class="clue-card-inner">
+          <div class="clue-card-front">
+            <div class="clue-letter">C</div>
+            <h3>Circle the Numbers</h3>
+            <p>Find every number in the story and circle it.</p>
+            <div class="flip-hint">👆 Tap for example</div>
+          </div>
+          <div class="clue-card-back">
+            <div class="back-label">Example</div>
+            <div class="example-text">Maya had <b>8</b> stickers. She gave <b>3</b> away.<br>8 and 3 are the clues &mdash; circle them!</div>
+            <div class="flip-hint">👆 Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+      <div class="clue-card" onclick="this.classList.toggle('flipped')">
+        <div class="clue-card-inner">
+          <div class="clue-card-front">
+            <div class="clue-letter">L</div>
+            <h3>Look for the Question</h3>
+            <p>Find the sentence that asks something, and underline it.</p>
+            <div class="flip-hint">👆 Tap for example</div>
+          </div>
+          <div class="clue-card-back">
+            <div class="back-label">Example</div>
+            <div class="example-text">"<u>How many stickers does Maya have left?</u>"<br>That's the question to answer!</div>
+            <div class="flip-hint">👆 Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+      <div class="clue-card" onclick="this.classList.toggle('flipped')">
+        <div class="clue-card-inner">
+          <div class="clue-card-front">
+            <div class="clue-letter">U</div>
+            <h3>Underline Keywords</h3>
+            <p>Words like "altogether" or "left" are big clues!</p>
+            <div class="flip-hint">👆 Tap for example</div>
+          </div>
+          <div class="clue-card-back">
+            <div class="back-label">Example</div>
+            <div class="example-text">The word "<b>left</b>" is the keyword clue here &mdash; it hints at subtraction!</div>
+            <div class="flip-hint">👆 Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+      <div class="clue-card" onclick="this.classList.toggle('flipped')">
+        <div class="clue-card-inner">
+          <div class="clue-card-front">
+            <div class="clue-letter">E</div>
+            <h3>Evaluate</h3>
+            <p>Use the keyword clue to choose the right operation.</p>
+            <div class="flip-hint">👆 Tap for example</div>
+          </div>
+          <div class="clue-card-back">
+            <div class="back-label">Example</div>
+            <div class="example-text">"Left" means take away, so we <b>SUBTRACT</b>:<br>8 &minus; 3</div>
+            <div class="flip-hint">👆 Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+      <div class="clue-card" onclick="this.classList.toggle('flipped')">
+        <div class="clue-card-inner">
+          <div class="clue-card-front">
+            <div class="clue-letter">S</div>
+            <h3>Solve &amp; Check</h3>
+            <p>Do the math, then ask: does my answer make sense?</p>
+            <div class="flip-hint">👆 Tap for example</div>
+          </div>
+          <div class="clue-card-back">
+            <div class="back-label">Example</div>
+            <div class="example-text">8 &minus; 3 = <b>5</b> stickers left.<br>Makes sense &mdash; she has fewer now! ✅</div>
+            <div class="flip-hint">👆 Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="clues-banner">Follow the <b>CLUES</b> and every mystery gets solved! 🎉</p>
+  </div>
+
+  <!-- KEYWORD BANK -->
+  <div class="section">
+    <div class="section-title">🗝️ Keyword Clue Bank</div>
+    <div class="keyword-cols">
+      <div class="kw-box add">
+        <h3><span class="op">+</span> Addition Clues</h3>
+        <p style="margin:0; font-weight:700; font-size:13px;">These words mean put together, so ADD.</p>
+        <div class="chip-row">
+          <span class="chip">altogether</span>
+          <span class="chip">in all</span>
+          <span class="chip">total</span>
+          <span class="chip">sum</span>
+          <span class="chip">combined</span>
+          <span class="chip">in total</span>
+          <span class="chip">both</span>
+        </div>
+        <div class="clue-example add">
+          Example: Sam has 4 red balloons and 5 blue balloons. How many balloons does he have <span class="kw-highlight add">in total</span>?<br>
+          4 + 5 = <b>9 balloons</b>
+        </div>
+      </div>
+      <div class="kw-box sub">
+        <h3><span class="op">&minus;</span> Subtraction Clues</h3>
+        <p style="margin:0; font-weight:700; font-size:13px;">These words mean take away or compare, so SUBTRACT.</p>
+        <div class="chip-row">
+          <span class="chip">left</span>
+          <span class="chip">fewer</span>
+          <span class="chip">difference</span>
+          <span class="chip">how many more</span>
+          <span class="chip">remain</span>
+          <span class="chip">gave away</span>
+          <span class="chip">less than</span>
+        </div>
+        <div class="clue-example sub">
+          Example: There are 10 birds on a branch. 4 birds fly away. How many birds are <span class="kw-highlight sub">left</span>?<br>
+          10 &minus; 4 = <b>6 birds</b>
+        </div>
+      </div>
+      <div class="kw-box mul">
+        <h3><span class="op">&times;</span> Multiplication Clues</h3>
+        <p style="margin:0; font-weight:700; font-size:13px;">These words mean equal groups joining, so MULTIPLY.</p>
+        <div class="chip-row">
+          <span class="chip">each</span>
+          <span class="chip">every</span>
+          <span class="chip">per</span>
+          <span class="chip">times</span>
+          <span class="chip">groups of</span>
+          <span class="chip">twice</span>
+          <span class="chip">double</span>
+        </div>
+        <div class="clue-example mul">
+          Example: There are 4 pages of stickers. <span class="kw-highlight mul">Each</span> page has 3 stickers. How many stickers in all?<br>
+          4 &times; 3 = <b>12 stickers</b>
+        </div>
+      </div>
+      <div class="kw-box div">
+        <h3><span class="op">&divide;</span> Division Clues</h3>
+        <p style="margin:0; font-weight:700; font-size:13px;">These words mean splitting into equal groups, so DIVIDE.</p>
+        <div class="chip-row">
+          <span class="chip">share equally</span>
+          <span class="chip">split</span>
+          <span class="chip">each group</span>
+          <span class="chip">divided by</span>
+          <span class="chip">equally among</span>
+          <span class="chip">how many in each</span>
+        </div>
+        <div class="clue-example div">
+          Example: 15 cookies are <span class="kw-highlight div">shared equally</span> among 5 friends. How many cookies does each friend get?<br>
+          15 &divide; 5 = <b>3 cookies</b>
+        </div>
+      </div>
+      <div class="kw-box misc">
+        <h3><span class="op">⚠</span> Watch Out! Two-Step Clues</h3>
+        <p style="margin:0; font-weight:700; font-size:13px;">Sometimes a keyword means there's a HIDDEN step. You must work out one thing FIRST, then use that answer to solve the real question.</p>
+        <div class="chip-row">
+          <span class="chip">more than</span>
+          <span class="chip">less than</span>
+          <span class="chip">than</span>
+          <span class="chip">after</span>
+          <span class="chip">then</span>
+          <span class="chip">combined age</span>
+          <span class="chip">left after buying both</span>
+        </div>
+        <div class="misc-example">
+          Example: Tom has 5 apples. Mia has 3 <b>more</b> apples <b>than</b> Tom. How many apples do they have altogether?<br>
+          Step 1 (hidden step): Mia's apples = 5 + 3 = 8<br>
+          Step 2 (real question): 5 + 8 = <b>13 apples altogether</b>
+        </div>
+      </div>
+      <div class="kw-box container">
+        <h3><span class="op">📦</span> Container Clues</h3>
+        <p style="margin:0; font-weight:700; font-size:13px;">Watch for boxes, baskets, bags, jars, or groups holding equal amounts &mdash; they're often a multiplication or division clue!
+        If you know how many are in EACH container and how many containers, MULTIPLY. If you know the TOTAL and how many containers, DIVIDE to find how many in each.</p>
+        <div class="chip-row">
+          <span class="chip">box / boxes</span>
+          <span class="chip">basket / baskets</span>
+          <span class="chip">bag / bags</span>
+          <span class="chip">jar / jars</span>
+          <span class="chip">container</span>
+          <span class="chip">group / groups</span>
+          <span class="chip">package / pack</span>
+          <span class="chip">crate</span>
+        </div>
+        <div class="container-example">
+          Example: There are 3 <span class="kw-highlight container">baskets</span>. <span class="kw-highlight mul">Each</span> basket has 6 oranges. How many oranges are there in total?<br>
+          You know the amount in EACH basket, so MULTIPLY: 3 &times; 6 = <b>18 oranges</b>
+        </div>
+      </div>
+    </div>
+    <div class="kw-disclaimer">
+      <b>🕵️ A detective's reminder:</b> keywords are helpful clues, but they're not a magic trick! Sometimes
+      a word like "more" can still mean subtraction, depending on the story. Always read the WHOLE problem
+      and think about what is actually happening &mdash; the keyword just gives you a hint, it doesn't decide
+      the answer for you.
+    </div>
+  </div>
+
+  <!-- WORKED EXAMPLE -->
+  <div class="section">
+    <div class="section-title">🔎 Case File #1 (Solved Example)</div>
+    <div class="example-card">
+      <p class="example-problem">
+        Maya had <span class="tag-number">8</span> stickers. She gave <span class="tag-number">3</span> stickers
+        to her friend. <span class="tag-question">How many stickers does Maya have <span class="tag-keyword">left</span>?</span>
+      </p>
+      <div class="example-steps">
+        <div class="estep">
+          <div class="letter">C</div>
+          <p>The numbers are <b>8</b> and <b>3</b>. Circle them!</p>
+        </div>
+        <div class="estep">
+          <div class="letter">L</div>
+          <p>The question is: <b>"How many stickers does Maya have left?"</b></p>
+        </div>
+        <div class="estep">
+          <div class="letter">U</div>
+          <p>The keyword is <b>"left"</b> &mdash; that's a subtraction clue!</p>
+        </div>
+        <div class="estep">
+          <div class="letter">E</div>
+          <p>"Left" means take away, so we <b>SUBTRACT</b>: 8 &minus; 3</p>
+        </div>
+        <div class="estep">
+          <div class="letter">S</div>
+          <p>8 &minus; 3 = <b>5</b>. Maya has 5 stickers left. Does that make sense? Yes &mdash; she has fewer than she started with! ✅</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="section">
+    <div class="section-title">🕵️‍♀️ Your Turn, Detective!</div>
+    <p class="pro-tip"><b>Pro Tip:</b> Click the clues in the sentence below to mark them so you won't miss them!</p>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #2</p>
+      <p class="problem" data-clues="2,9,20,21">Liam has 6 toy cars. His brother gives him 5 more toy cars. How many toy cars does Liam have in all?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans2" data-answer="11" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint1')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans2','answer1')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint1">The keyword is <b>"in all"</b> &mdash; that means put the groups together. Which operation is that?</div>
+      <div class="reveal-box answer" id="answer1"><span class="feedback"></span>6 + 5 = <b>11</b>. Liam has 11 toy cars in all. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #3</p>
+      <p class="problem" data-clues="2,7,15">There are 14 birds on a fence. 9 birds fly away. How many birds are left on the fence?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans3" data-answer="5" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint2')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans3','answer2')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint2">The keyword is <b>"left"</b> &mdash; some birds flew away, so the group got smaller.</div>
+      <div class="reveal-box answer" id="answer2"><span class="feedback"></span>14 &minus; 9 = <b>5</b>. There are 5 birds left on the fence. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #4</p>
+      <p class="problem" data-clues="2,6,15">Ana picked 7 red apples and 8 green apples. How many apples did she pick altogether?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans4" data-answer="15" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint3')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans4','answer3')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint3">The keyword is <b>"altogether"</b> &mdash; two groups of apples are joining together.</div>
+      <div class="reveal-box answer" id="answer3"><span class="feedback"></span>7 + 8 = <b>15</b>. Ana picked 15 apples altogether. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #5</p>
+      <p class="problem" data-clues="0,3,7,14,15">Each shelf has 5 books. There are 3 shelves. How many books are there in all?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans5" data-answer="15" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint4')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans5','answer4')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint4">The keyword is <b>"Each"</b> &mdash; equal groups joining together means MULTIPLY.</div>
+      <div class="reveal-box answer" id="answer4"><span class="feedback"></span>5 &times; 3 = <b>15</b>. There are 15 books in all. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #6</p>
+      <p class="problem" data-clues="0,3,4,6">18 marbles are shared equally among 3 friends. How many marbles does each friend get?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans6" data-answer="6" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint5')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans6','answer5')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint5">The keyword is <b>"shared equally"</b> &mdash; splitting into equal groups means DIVIDE.</div>
+      <div class="reveal-box answer" id="answer5"><span class="feedback"></span>18 &divide; 3 = <b>6</b>. Each friend gets 6 marbles. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #7</p>
+      <p class="problem" data-clues="2,6,7,9,17">Jack has 6 stamps. Mia has 4 more stamps than Jack. How many stamps do they have altogether?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans7" data-answer="16" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint6')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans7','answer6')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint6">The keyword is <b>"more than"</b> &mdash; that's a hidden step! First find Mia's stamps, THEN add both.</div>
+      <div class="reveal-box answer" id="answer6"><span class="feedback"></span>Step 1: Mia's stamps = 6 + 4 = 10. Step 2: 6 + 10 = <b>16</b>. They have 16 stamps altogether. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+
+    <div class="practice-card">
+      <p class="ptitle">CASE FILE #8</p>
+      <p class="problem" data-clues="2,3,4,7,14,15">There are 4 boxes. Each box has 7 pencils. How many pencils are there in total?</p>
+      <div class="answer-row">
+        <label>Your Answer:</label>
+        <input type="text" class="answer-input" id="ans8" data-answer="28" placeholder="Type your answer here">
+      </div>
+      <div class="btn-row">
+        <button class="reveal-btn" onclick="toggleBox('hint7')">💡 Show Hint</button>
+        <button class="reveal-btn answer-btn" onclick="checkAnswer('ans8','answer7')">✅ Check Answer</button>
+      </div>
+      <div class="reveal-box hint" id="hint7">The keywords are <b>"boxes"</b> and <b>"Each"</b> &mdash; you know the amount in each container, so MULTIPLY.</div>
+      <div class="reveal-box answer" id="answer7"><span class="feedback"></span>4 &times; 7 = <b>28</b>. There are 28 pencils in total. <span class="stamp">CASE CLOSED</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="reminder">
+    🌟 Remember: Read every case TWICE before you solve it! 🌟
+    <div class="small">Slow, careful detectives solve the most mysteries.</div>
+  </div>
+
+  <div class="made-with-love">Made with ❤️ by <b>Mama Jess</b></div>
+
+</div>
+
+<script>
+  function toggleBox(id) {
+    var el = document.getElementById(id);
+    el.classList.toggle('show');
+  }
+
+  function checkAnswer(inputId, boxId) {
+    var input = document.getElementById(inputId);
+    var box = document.getElementById(boxId);
+    var feedback = box.querySelector('.feedback');
+    var correct = input.getAttribute('data-answer');
+    var val = input.value.trim();
+    var match = val.match(/\d+/);
+    var num = match ? match[0] : null;
+
+    box.classList.add('show');
+
+    if (num !== null && num === correct) {
+      box.classList.remove('incorrect');
+      input.style.borderColor = 'var(--grass-dark)';
+      feedback.innerHTML = '🎉 <b>Correct!</b> ';
+    } else {
+      box.classList.add('incorrect');
+      input.style.borderColor = 'var(--coral-dark)';
+      feedback.innerHTML = '❌ <b>Not quite.</b> Here\'s how to solve it: ';
+    }
+
+    // Underline the clue words in this case's sentence
+    var card = input.closest('.practice-card');
+    if (card) {
+      var problem = card.querySelector('.problem');
+      if (problem && problem.dataset.clues) {
+        var indices = problem.dataset.clues.split(',').map(Number);
+        var words = problem.querySelectorAll('.word');
+        indices.forEach(function(i) {
+          if (words[i]) { words[i].classList.add('underlined'); }
+        });
+      }
+    }
+  }
+
+  function wrapWordsForClicking() {
+    var problems = document.querySelectorAll('.practice-card .problem');
+    problems.forEach(function(p) {
+      var text = p.textContent;
+      var tokens = text.split(/(\s+)/); // keep whitespace as separate tokens
+      var html = '';
+      tokens.forEach(function(tok) {
+        if (tok.trim() === '') {
+          html += tok;
+        } else {
+          html += '<span class="word" onclick="this.classList.toggle(\'underlined\')">' + tok + '</span>';
+        }
+      });
+      p.innerHTML = html;
+    });
+  }
+
+  wrapWordsForClicking();
+</script>
+</body>
+</html>
